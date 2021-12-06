@@ -65,13 +65,13 @@
                   </a>
                 </li>
                 <li class = "nav-item">  
-                  <a class="nav-link active" href="#">
+                  <a class="nav-link active" href="{% url 'logout' %}">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     Logout</a>
                 </li>
                 {% else %}
                 <li class = "nav-item">  
-                  <a class="nav-link active" href="#">
+                  <a class="nav-link active" href="{% url 'login' %}">
                     Login</a>
                 </li>
                 <li class = "nav-item">  
