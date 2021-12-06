@@ -3,7 +3,19 @@ from django.forms.widgets import *
 from django.forms import *
 from .models import *
 
-class CreateUserForm(UserCreationForm):
+class UserForm(UserCreationForm):
+    attrs = {'class': 'form-control', 'id': 'floatingInput',
+             'placeholder': 'Enter Password', 'required': True}
+    password1 = CharField(widget=PasswordInput(attrs=attrs))
+    password2 = CharField(widget=PasswordInput(attrs=attrs))
+
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['first_name', 'last_name', 'username',
+                  'email', 'password1', 'password2']
+        widgets = {
+            'first_name': TextInput(attrs={'class': 'form-control', 'placeholder': 'First name', 'aria-label': 'First name', 'required': True}),
+            'last_name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Last name', 'aria-label': 'Last name', 'required': True}),
+            'username': TextInput(attrs={'class': 'form-control', 'placeholder': 'Username', 'aria-label': 'Username', 'required': True}),
+            'email': TextInput(attrs={'class': 'form-control', 'placeholder': 'Email', 'aria-label': 'Email', 'required': True}),
+        }

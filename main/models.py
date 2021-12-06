@@ -18,10 +18,3 @@ class Note(models.Model):
     def __str__(self):
         return self.title
 
-class User(models.Model):
-    email = models.EmailField(verbose_name="email", max_length=60, unique=True)
-    first_name = models.CharField(verbose_name="first name", max_length=20, null=True, blank=True)
-    last_name = models.CharField(verbose_name="last name", max_length=20, null=True, blank=True)
-
-    def __str__(self):
-        return f'{self.first_name} {self.last_name}'

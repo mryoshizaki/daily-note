@@ -11,12 +11,7 @@ from .decorators import unauthenticated_user
 
 # Create your views here.
 def index(request):
-    if request.user.is_authenticated:
-        user = request.user
-    else:
-        return redirect('login')
-    context = {"user": user,}
-    return render(request, "index.html", context)
+    return render(request, "main/index.html")
 
 @unauthenticated_user
 def loginPage(request):
@@ -34,25 +29,20 @@ def loginPage(request):
             return redirect('login')
 
     context = {}
-    return render(request, "login.html", context)
+    return render(request, "main/login.html", context)
 
 @unauthenticated_user
 def registerPage(request):
-    form = CreateUserForm()
-
+    form = UserForm()
     if request.method == 'POST':
-        form = CreateUserForm(request.POST)
+        form = UserForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            User.objects.create(
-                user=user,
-                name=form.cleaned_data.get('username'),
-            )
+            form.save()
 
             subject = 'Daily Note Account Creation Success.'
-            message = f'Hi {user.username}, you have successfully registered to Daily Note. We hope you enjoy our services!'
+            message = f'Hi {form.cleaned_data.get("username")}, you have successfully registered to Daily Note. We hope you enjoy our services!'
             email_from = settings.EMAIL_HOST_USER
-            recipient_list = [user.email, ]
+            recipient_list = [form.cleaned_data.get("email")]
             send_mail(subject, message, email_from, recipient_list)
 
             messages.success(request, 'Account creation success.')
@@ -60,4 +50,4 @@ def registerPage(request):
             return redirect('login')
 
     context = {'form': form}
-    return render(request, "register.html", context)
+    return render(request, "main/register.html", context)
