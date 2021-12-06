@@ -15,7 +15,7 @@
                 <h5 class="modal-title">Create new note</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="#" method="post">
+            <form action="{% url 'notesview' %}" method="post">
                 {% csrf_token %}
                 <div class="modal-body" style="color: black">
                     <div class="modal-body" style="color: black">
@@ -23,7 +23,7 @@
                             </div>
                             <br />
                             <div class="row" style="width: 50%; margin-left: 15%; margin-right: 15%">
-                            <div class="col">Title: {{form.author}}</div>
+                            <div class="col">Title: {{form.title}}</div>
                             </div>
                             <br />
                             <br />
@@ -52,7 +52,13 @@
               <div class="card-body text-center">
                   <h5 class = "card-title">{{ note.title}}</h5>
                     <p class = "card-text">{{ note.text}}</p>
-                    <a href="#">Update</a>
+                    <form action="{% url 'update-note' note.id %}" method="post">
+                        {% csrf_token %}
+                        <button id="submit_button" type="submit" class="btn btn-sm btn-success" style="margin:auto; display: block;">
+                            <i class="fas fa-envelope-square"></i>
+                        Updates
+                    </button>
+                    </form>
                     <form action="{% url 'delete-note' note.id %}" method="post">
                         {% csrf_token %}
                         <button id="submit_button" type="submit" class="btn btn-sm btn-success" style="margin:auto; display: block;">
@@ -68,4 +74,8 @@
       </section>
     </div>
 </main>
+
+    </div>
+    </div>
+</div>
 {% endblock %}
