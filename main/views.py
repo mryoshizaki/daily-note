@@ -7,6 +7,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.utils import timezone
 from .decorators import unauthenticated_user
+from django.core.exceptions import ObjectDoesNotExist
 
 
 # Create your views here.
@@ -58,17 +59,48 @@ def logoutPage(request):
 
 def Notes_View(request):
     user = request.user
-    notes = Note.objects.get(author = user)
+    # notes = Note.objects.filter(author = user)
+    # notes = []
+    try:
+        notes = Note.objects.filter(author = user)
+    except ObjectDoesNotExist:
+        notes = []
+
     form = NoteForm()
-    if(request.method == POST):
-        form = NoteForm({'author':request.user,'title':request.POST.get('title'),'text':request.POST.get('text')})
-        if(form.is_valid()):
-            form.save
-            notes = Note.objects.get(author=user)
+    if request.method == 'POST':
+        form = NoteForm({'author':request.user,'title':request.POST.get('title'),
+                        'text':request.POST.get('text')})
+        if form.is_valid():
+            form.save()
+            notes = Note.objects.filter(author=user)
             form = NoteForm()
-            data = {'notes':notes,'form':form}
-            return render(request, 'main/notes/notesview.html')
+            print("saved form")
+            # print(form)
         else:
             print(form.errors)
-    data = {'notes':notes,'form':form}
+    data = {'notes':notes, 'form':form}
+    return render(request, 'main/notes/NotesView.html',data)
+    
+
+def update_note(request,pk):
+    user = request.user
+    notes = Note.objects.filter(author = user)
+
+    data = {'notes':notes}
+    return render(request, 'main/notes/NotesView.html',data)
+
+def delete_note(request,pk):
+    user = request.user
+
+    try:
+        notes = Note.objects.filter(author = user)
+    except ObjectDoesNotExist:
+        notes = []
+        data = {'notes':notes}
+        return render(request, 'main/notes/NotesView.html',data)
+
+    note = Note.objects.get(id=pk)
+    note.delete()
+    
+    data = {'notes':notes}
     return render(request, 'main/notes/NotesView.html',data)

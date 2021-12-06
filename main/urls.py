@@ -8,4 +8,5 @@ urlpatterns = [
 
     #notes
     path('view-notes/', views.Notes_View, name='notesview'),
+    path('view-notes/delete/<pk>', views.delete_note, name='delete-note'),
 ]
