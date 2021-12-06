@@ -56,7 +56,7 @@
                         {% csrf_token %}
                         <button id="submit_button" type="submit" class="btn btn-sm btn-success" style="margin:auto; display: block;">
                             <i class="fas fa-envelope-square"></i>
-                        Updates
+                        Update
                     </button>
                     </form>
                     <form action="{% url 'delete-note' note.id %}" method="post">
