@@ -8,6 +8,13 @@ from django.core.mail import send_mail
 from django.utils import timezone
 from .decorators import unauthenticated_user
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.forms import PasswordResetForm
+from django.db.models.query_utils import Q
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.contrib.auth.tokens import default_token_generator
+from django.template.loader import render_to_string
+from VaccineRecord.settings import EMAIL_HOST_USER
 
 
 # Create your views here.
@@ -89,10 +96,10 @@ def update_note(request,pk):
     record = Note.objects.get(id=pk)
     try:
         notes = Note.objects.filter(author = user)
-        # if request.method == 'POST':
-        #     note = Note.objects.get(id=pk)
-        #     form = NoteForm({'author':request.user,'title':request.POST.get('title'),
-        #                 'text':request.POST.get('text')}, instance = profile)
+        if request.method == 'POST':
+            note = Note.objects.get(id=pk)
+            form = NoteForm({'author':request.user,'title':request.POST.get('title'),
+                        'text':request.POST.get('text')}, instance = profile)
 
         # if(form.is_valid()):
         #     form.save()
@@ -120,3 +127,33 @@ def delete_note(request,pk):
 
     data = {'notes':notes}
     return render(request, 'main/notes/NotesView.html',data)
+
+#Reset password -----
+def passwordReset(request): 
+    if request.method == "POST":
+        password_reset_form = PasswordResetForm(request.POST)
+        if password_reset_form.is_valid():
+                data = password_reset_form.cleaned_data['email']
+                associated_users = User.objects.filter(Q(email=data))
+                if associated_users.exists():
+                    for user in associated_users:
+                        subject = "Password Reset Requested"
+                        email_template_name = "main/reset/password_reset_email.txt"
+                        c = {
+                        "email":user.email,
+                        'domain':'127.0.0.1:8000',
+                        'site_name': 'Reminderific',
+                        "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                        "user": user,
+                        'token': default_token_generator.make_token(user),
+                        'protocol': 'http',
+                        }
+                        message = render_to_string(email_template_name, c)
+                        try:
+                            send_mail(subject, message, EMAIL_HOST_USER , [user.email], fail_silently=False)
+                        except BadHeaderError:
+                            return HttpResponse('Invalid header found.')
+                        return redirect ("done/")
+
+    password_reset_form = PasswordResetForm()
+    return render(request=request, template_name="main/reset/password-reset.html", context={"password_reset_form":password_reset_form})
