@@ -14,7 +14,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.template.loader import render_to_string
-from VaccineRecord.settings import EMAIL_HOST_USER
+from mysite.settings import EMAIL_HOST_USER
 
 
 # Create your views here.
