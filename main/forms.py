@@ -20,7 +20,7 @@ class UserForm(UserCreationForm):
             'email': TextInput(attrs={'class': 'form-control', 'placeholder': 'Email', 'aria-label': 'Email', 'required': True}),
         }
 
-class NoteForm(forms.ModelForm):
+class NoteForm(ModelForm):
     model = Note
     fields = "__all__"
     widgets = {
