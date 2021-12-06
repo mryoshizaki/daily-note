@@ -1,0 +1,59 @@
+{% extends 'main/navbar.html' %} 
+{% block content %}
+
+<button
+    class="btn btn-sm btn-outline-dark"
+    data-bs-toggle="modal"
+    data-bs-target="#note"
+    style="color: black">
+    Add new note </button>
+
+    <div class="modal fade" id="note">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create new note</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="#" method="post">
+                <div class="modal-body" style="color: black">
+                    {% csrf_token %}
+                    <div class="modal-body" style="color: black">
+                            <div class="row" style="margin-left: 15%; margin-right: 15%">
+                            </div>
+                            <br />
+                            <div class="row" style="width: 50%; margin-left: 15%; margin-right: 15%">
+                            <div class="col">Title: {{form.author}}</div>
+                            </div>
+                            <br />
+                            <br />
+                            <div class="row" style="margin-left: 15%; margin-right: 15%">
+                            <div class="col">Enter note text: {{form.text}}</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button id="submit_button" type="submit" class="btn btn-primary">Set Appointment</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+
+
+<table>
+    {% for note in notes %}
+    <td>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{note.title}}</h5>
+              <p class="card-text">{{note.text}}</p>
+              <a href="#" class="card-link">Update</a>
+              <a href="#" class="card-link">Delete</a>
+            </div>
+          </div>
+    </td>
+    {% endfor %}
+</table>
+{% endblock %}

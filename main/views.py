@@ -55,3 +55,20 @@ def registerPage(request):
 def logoutPage(request):
     logout(request)
     return render(request, "main/index.html")
+
+def Notes_View(request):
+    user = request.user
+    notes = Note.objects.get(author = user)
+    form = NoteForm()
+    if(request.method == POST):
+        form = NoteForm({'author':request.user,'title':request.POST.get('title'),'text':request.POST.get('text')})
+        if(form.is_valid()):
+            form.save
+            notes = Note.objects.get(author=user)
+            form = NoteForm()
+            data = {'notes':notes,'form':form}
+            return render(request, 'main/notes/notesview.html')
+        else:
+            print(form.errors)
+    data = {'notes':notes,'form':form}
+    return render(request, 'main/notes/NotesView.html',data)
