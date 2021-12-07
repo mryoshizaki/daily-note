@@ -1,12 +1,19 @@
 {% extends 'main/navbar.html' %} 
 {%block content%}
-<div class="container h-100">
+
+
+
+<div class="container h-100" style="margin: auto; padding: 70px 0;">
     <div class="d-flex justify-content-center h-100">
         <div class="user_card">
 
             <div class="d-flex justify-content-center">
-                <h3 id="form-title">Login!</h3>
+                <h3 id="form-title" style="color: #4b4170;">
+                    <i class="fas fa-sticky-note"></i>
+                    Daily Note
+                </h3>
             </div>
+            <br> 
             <div class="d-flex justify-content-center form_container">
                 <form method="POST" action="">
                     {% csrf_token %}
@@ -17,17 +24,24 @@
                         <input type="password" name="password" placeholder="Password" class="form-control" >
                             
                     </div>
-                    <div>
-                    <p><a href="{% url 'password-reset' %}">Forgot password?</a></p>
-                    </div>
+                    
                     <div>
                         {% for message in messages %} {% if message.tags == 'success' %}
                         {% else %}
                         {{message | striptags}}
                         {% endif %} {% endfor %}
                     </div>
+                    <br>
                     <div class="d-flex justify-content-center mt-3 login_container">
-                        <input class="btn login_btn" type="submit" value="Login">
+                        <input class="btn login_btn" type="submit" value="Login" style="width: 50%; background-color: #7ec4cf; border-color: #7ec4cf;">
+                    </div>
+                    <br>
+                    <div>
+            
+                        <p style="font-weight:bold; color: #4b4170;">
+                            <a href="{% url 'register' %}" style="font-weight:bold; color: #4b4170;">No account? Register here.</a> |
+                            <a href="{% url 'password-reset' %}" style="font-weight:bold; color: #4b4170;">Forgot password?</a>
+                        </p>
                     </div>
                 </form>
             </div>
