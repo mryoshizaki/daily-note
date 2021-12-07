@@ -1,5 +1,86 @@
-{% extends 'main/navbar.html' %} 
+{% extends 'main/navbar2.html' %} 
 {% block content %}
+{{form.media}}
+</head>
+<body style="background-color:#d1cfe2">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #eeeeee">
+        <div class="container-fluid">
+          <div class = "topnav-left">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!-- <li class="nav-item">
+                  <a class="navbar-brand"href="#">Reminderific</a>
+                </li> -->
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                 <a class="nav-link active" aria-current="page" href="#" style="font-weight:bold">
+                  <i class="fas fa-sticky-note"></i>
+                   Daily Note
+                  </a> 
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">
+                    Dashboard
+                  </a>
+                </li>   
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">
+                    Calendar
+                  </a>
+                </li> 
+                <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'notesview' %}">
+                    Notes
+                  </a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                  <a class="nav-link active" href="#" style="font-weight: bold;">
+                    <i class="fas fa-sticky-note"></i>
+                    Daily Note
+                  </a>
+                </li>
+                {%  endif  %}
+              </ul>
+          </div>
+          <div class="topnav-right" id="navbarSupportedContent" >
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% if user.is_authenticated %}
+                <li class = "nav-item dropdown">  
+                  <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown">
+                    <i class="fas fa-user-circle"></i> 
+                    Hi {{ user.first_name }} !
+                  </a>
+                  <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item">Pastel-themed</a>
+                    <a href="#" class="dropdown-item">Neutral-themed</a>
+                    <a href="#" class="dropdown-item">Bright-themed</a>
+                </div>
+                </li>
+                <li class = "nav-item">  
+                  <a class="nav-link active" href="{% url 'logout' %}">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout</a>
+                </li>
+                {% else %}
+                <li class = "nav-item">  
+                  <a class="nav-link active" href="{% url 'login' %}">
+                    Login</a>
+                </li>
+                <li class = "nav-item">  
+                  <a class="nav-link active" href="{% url 'register' %}">
+                    Register</a>
+              </li>
+                {% endif %}
+            </ul>
+
+            <!-- <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form> -->
+          </div>
+        </div>
+      </nav>
+
 
 <br> <br>
 
@@ -33,7 +114,7 @@
                             <br />
                             <br />
                             <div class="row" style="margin-left: 15%; margin-right: 15%">
-                            <div class="col">Enter note text: {{form.text}}</div>
+                            <div class="col">Enter note text:{{form.text}}</div>
                         </div>
                     </div>
                     <br> <br>
@@ -57,7 +138,7 @@
             <div class="card">
               <div class="card-body text-center">
                   <h5 class = "card-title">{{ note.title}}</h5>
-                    <p class = "card-text">{{ note.text}}</p>
+                    <p class = "card-text">{% autoescape off %}{{note.text}}{% endautoescape %}</p>
                     <form action="{% url 'update-note' note.id%}" method="post">
                         {% csrf_token %}
                         <button id="submit_button" type="submit" class="btn btn-sm btn-success" style="margin:auto; display: block; background-color: #7ec4cf; border-color: #7ec4cf;">
