@@ -1,0 +1,129 @@
+{% extends 'main/navbar.html' %} {% load widget_tweaks %}
+{%block content%}
+
+<style>
+    #calendar {
+        padding-top: 2%; 
+        padding-bottom: 2%; 
+        background-color: #e9cbd3;
+        border-style: outset;
+        border-radius: 5px;
+        border-color: black;
+    }
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    .fc-prev-button.btn.btn-primary {
+        background-color: #7ec4cf;
+        border-color: #7ec4cf;
+    }
+
+    .fc-next-button.btn.btn-primary {
+        background-color: #7ec4cf;
+        border-color: #7ec4cf;
+    }
+
+    .fc-today-button.btn.btn-primary {
+        background-color: #7ec4cf;
+        border-color: #7ec4cf;
+    }
+
+    .fc-dayGridMonth-button.btn.btn-primary.active {
+        background-color: #7ec4cf;
+        border-color: #7ec4cf;
+    }
+
+    .fc-timeGridWeek-button.btn.btn-primary {
+        background-color: #7ec4cf;
+        border-color: #7ec4cf;
+    }
+
+    .fc-timeGridDay-button.btn.btn-primary {
+        background-color: #7ec4cf;
+        border-color: #7ec4cf;
+    }
+</style>
+
+<!-- <head>
+<link href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.css' rel='stylesheet' />
+<link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
+</head> -->
+
+
+<div class="container-fluid">
+    <br>
+    <br>
+    <div class="row" style="padding-left: 2%; padding-right: 2%; border-width: 2px;"> 
+        <div id="calendar" ></div>
+    </div>
+</div>
+
+{{ calendars|json_script:"calendar_data" }}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Initialize calendar
+        var calendarEl = document.getElementById("calendar");
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            // format of calendar
+            themeSystem: "bootstrap",
+            locale: "en",
+            firstDay: 1,
+            weekday: "long",
+            height: "650px",
+            initialView: "dayGridMonth",
+            selectable: true,
+            headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'},
+
+            // add event
+            events:{}
+            
+        });
+        calendar.render();
+
+        // Calendar edit form
+        calendars = JSON.parse(document.getElementById("calendar_data").textContent);
+        input_calendars = document.getElementById("id_calendars");
+        input_name = document.getElementById("id_name");
+        input_visible_for = document.getElementById("id_visible_for");
+        input_editable_by = document.getElementById("id_editable_by");
+        input_calendar_id = document.getElementById("id_calendar_id");
+
+        if (calendars.length > 0) {
+            calendarChanged();
+        } else {
+            deactivateInputs();
+        }
+    });
+
+    function deactivateInputs() {
+        document.getElementById("editcalendar-tab").classList.add("disabled");
+    }
+
+    function calendarChanged() {
+        calendars.forEach((element) => {
+            if (element.calendar_id === parseInt(input_calendars.value)) {
+                input_name.value = element.name;
+                input_visible_for.value = element.visible_for;
+                input_editable_by.value = element.editable_by;
+                input_calendar_id.value = element.calendar_id;
+            }
+        });
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
