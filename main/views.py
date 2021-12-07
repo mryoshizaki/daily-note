@@ -91,24 +91,19 @@ def Notes_View(request):
 
 def update_note(request,pk):
     user = request.user
-    profile = Note.objects.get(author=user)
-    form = UpdateNoteForm(instance = profile)
+    form = UpdateNoteForm(instance = user)
     record = Note.objects.get(id=pk)
-    notes = Note.objects.filter(author = user)
     try:
-        notes = Note.objects.filter(author = user)
         if request.method == 'POST':
-            note = Note.objects.get(id=pk)
             form = NoteForm({'author':request.user,'title':request.POST.get('title'),
-                        'text':request.POST.get('text')}, instance = profile)
+                        'text':request.POST.get('text')}, instance = user)
 
-        # if(form.is_valid()):
-        #     form.save()
-        #     print("valid")
-        #     record = Note.objects.get(id=pk)
-        #     profile = Note.objects.get(author=user)
-        #     data = {'notes':notes, 'form':form}
-        #     return render(request, 'main/notes/updae_note.html',data)
+        if(form.is_valid()):
+            form.save()
+            print("valid")
+            record = Note.objects.get(id=pk)
+            data = {'record':record, 'form':form}
+            return render(request, 'main/notes/update_note.html',data)
 
     except ObjectDoesNotExist:
         notes = []
