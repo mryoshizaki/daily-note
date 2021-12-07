@@ -17,13 +17,13 @@
                             <h1 class="login-heading mb-4">MyCalendar App</h1>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link active" id="mycalendars-tab" data-toggle="tab" href="#mycalendars" role="tab" aria-controls="mycalendars" aria-selected="true">Meine Kalender</a>
+                                    <a class="nav-link active" id="mycalendars-tab" data-toggle="tab" href="#mycalendars" role="tab" aria-controls="mycalendars" aria-selected="true">My Calendar</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="editcalendar-tab" data-toggle="tab" href="#editcalendar" role="tab" aria-controls="editcalendar" aria-selected="false">Bearbeiten</a>
+                                    <a class="nav-link" id="editcalendar-tab" data-toggle="tab" href="#editcalendar" role="tab" aria-controls="editcalendar" aria-selected="false">Edit</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="createcalendar-tab" data-toggle="tab" href="#createcalendar" role="tab" aria-controls="createcalendar" aria-selected="false">Erstellen</a>
+                                    <a class="nav-link" id="createcalendar-tab" data-toggle="tab" href="#createcalendar" role="tab" aria-controls="createcalendar" aria-selected="false">Create</a>
                                 </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
@@ -33,7 +33,7 @@
                                             {% for calendar in my_calendars %}
                                             <li class="list-group-item ml-3">
                                                 {{ calendar.name }}
-                                                <a type="button" class="btn btn-sm btn-outline-secondary float-right" href="#">Anzeigen</a>
+                                                <a type="button" class="btn btn-sm btn-outline-secondary float-right" href="#">Display</a>
                                             </li>
                                             {% endfor %}
                                         </ul>
@@ -52,32 +52,32 @@
                                         </div>
                                         <div class="form-label-group">
                                             {% render_field editform.visible_for class="form-control" %}
-                                            <label for="id_visible_for">Sichtbar für:</label>
+                                            <label for="id_visible_for">Visible For:</label>
                                             {{ editform.visible_for.errors }}
                                         </div>
                                         <div class="form-label-group">
                                             {% render_field editform.editable_by class="form-control" %}
-                                            <label for="id_editable_by">Bearbeitbar durch:</label>
+                                            <label for="id_editable_by">Editable By:</label>
                                             {{ editform.editable_by.errors }} {{ editform.errors }}
                                         </div>
-                                        <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" name="action" value="edit">Änderung speichern</button>
-                                        <button class="btn btn-lg btn-danger btn-block btn-login text-uppercase font-weight-bold mb-2" type="button" data-toggle="modal" data-target="#deleteModal">Kalender löschen</button>
+                                        <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" name="action" value="edit">Save Changes</button>
+                                        <button class="btn btn-lg btn-danger btn-block btn-login text-uppercase font-weight-bold mb-2" type="button" data-toggle="modal" data-target="#deleteModal">Delete Calendar</button>
                                         <div class="modal" tabindex="-1" role="dialog" id="deleteModal">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title">Löschen eines Kalenders</h5>
+                                                        <h5 class="modal-title">Delete a Calendar</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <p>Möchtest du den Kalender wirklich löschen?</p>
-                                                        <small>Alle damit verbundenen Events werden ebenfalls unwiderruflich gelöscht.</small>
+                                                        <p>Do you really want to delete the calendar?</p>
+                                                        <small>All related events will also be irrevocably deleted.</small>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Doch nicht</button>
-                                                        <button class="btn btn-danger" type="submit" name="action" value="delete">Weg damit!</button>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                        <button class="btn btn-danger" type="submit" name="action" value="delete">Delete</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -89,20 +89,20 @@
                                         {% csrf_token %}
                                         <div class="form-label-group">
                                             {% render_field createform.name class="form-control" %}
-                                            <label for="id_owner">Name des Kalenders</label>
+                                            <label for="id_owner">Name of Calendar</label>
                                             {{ createform.name.errors }}
                                         </div>
                                         <div class="form-label-group">
                                             {% render_field createform.visible_for class="form-control" %}
-                                            <label for="id_visible_for">Sichtbar für:</label>
+                                            <label for="id_visible_for">Visible To:</label>
                                             {{ createform.visible_for.errors }}
                                         </div>
                                         <div class="form-label-group">
                                             {% render_field createform.editable_by class="form-control" %}
-                                            <label for="id_editable_by">Bearbeitbar durch:</label>
+                                            <label for="id_editable_by">Editable By:</label>
                                             {{ createform.editable_by.errors }}
                                         </div>
-                                        <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" name="action" value="create">Erstellen</button>
+                                        <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" name="action" value="create">Create</button>
                                     </form>
                                 </div>
                             </div>
@@ -125,6 +125,10 @@
             firstDay: 1,
             height: "600px",
             initialView: "dayGridMonth",
+            headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'}
         });
         calendar.render();
 
