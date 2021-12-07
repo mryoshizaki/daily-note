@@ -108,27 +108,6 @@ def update_note(request,pk):
     data = {"note":note,'form':form}
     return render(request, "main/notes/update_note.html",data)
 
-        
-    # user = request.user
-    # author = Note.objects.get(id=pk).author
-    # # profile = Note.objects.get(author=author)
-    # record = Note.objects.get(id=pk)
-    # form = UpdateNoteForm(instance = record)
-    # if(request.method=="POST"):   
-    #     # user = User.objects.get(username=author)
-    #     form = NoteForm({'author':request.user,'title':request.POST.get('title'),
-    #             'text':request.POST.get('text')}, instance = author)
-    #     print(request.user)
-    #     print(pk)
-    #     print(Note.objects.get(id=pk))
-    #     print(Note.objects.get(id=pk).title)
-    #     print(request.POST.get('title'))
-    #     print(request.POST.get('text'))
-    # notes = Note.objects.filter(author=user)
-    # data = {'notes':notes, 'form':form}
-    # return render(request, 'main/notes/update_note.html',data)
-
-
 def delete_note(request,pk):
     user = request.user
     form = NoteForm()
