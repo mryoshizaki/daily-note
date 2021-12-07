@@ -16,4 +16,7 @@ urlpatterns = [
     path('view-notes/', views.Notes_View, name='notesview'),
     path('view-notes/update/<pk>', views.update_note, name='update-note'),
     path('view-notes/delete/<pk>', views.delete_note, name='delete-note'),
+
+    #calendar
+    path('calendar-view/', views.calendar_view, name='calendar'),
 ]

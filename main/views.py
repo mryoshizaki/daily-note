@@ -15,6 +15,7 @@ from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.template.loader import render_to_string
 from mysite.settings import EMAIL_HOST_USER
+from .serializers import *
 
 
 # Create your views here.
@@ -155,3 +156,35 @@ def passwordReset(request):
 
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name="main/reset/password-reset.html", context={"password_reset_form":password_reset_form})
+
+
+#Calendar
+
+def calendar_view(request):
+    if request.POST:
+        if request.POST['action'] == 'create':
+            form = CalendarForm(request.POST)
+            if form.is_valid():
+                form.set_owner(request.user)
+                form.save()
+
+        if request.POST['action'] == 'edit':
+            form = CalendarEditForm(request.POST)
+            if form.is_valid():
+                form.save(commit=True)
+
+        if request.POST['action'] == 'delete':
+            calendar = Calendar.objects.get(calendar_id=request.POST["calendar_id"])
+            if calendar.owner == request.user:
+                calendar.delete()
+
+    queryset = Calendar.objects.filter(owner=request.user.pk)
+    calendars = CalendarSerializer(queryset, many=True).data
+
+    createform = CalendarForm()
+    editform = CalendarEditForm(initial={"user_id": request.user.pk, "owner": request.user})
+
+    my_calendars = queryset
+
+    data = {'calendars':calendars, 'createform':createform, 'editform':editform,'my_calendars':my_calendars}
+    return render(request, 'main/calendar/calendar.html',data)
