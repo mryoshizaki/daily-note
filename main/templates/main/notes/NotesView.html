@@ -1,18 +1,23 @@
 {% extends 'main/navbar.html' %} 
 {% block content %}
 
+<br> <br>
+
+
 <button
-    class="btn btn-sm btn-outline-dark"
+    class="btn btn-sm btn-outline-dark "
     data-bs-toggle="modal"
     data-bs-target="#note"
-    style="color: black">
+    style="background-color: #7ec4cf; border-color: #7ec4cf; margin-left: 85%;">
+    <i class="fas fa-plus"></i>
     Add new note </button>
+    <br> <br>
 
-    <div class="modal fade" id="note">
+    <div class="modal fade" id="note" >
         <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Create new note</h5>
+            <div class="modal-header" style="background-color: #9cadce;">
+                <h5 class="modal-title">Create New Note</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="{% url 'notesview' %}" method="post">
@@ -31,9 +36,10 @@
                             <div class="col">Enter note text: {{form.text}}</div>
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <br> <br>
+                    <div class="modal-footer" >
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button id="submit_button" type="submit" class="btn btn-primary">Add note</button>
+                        <button id="submit_button" type="submit" class="btn btn-primary" style="background-color: #7ec4cf; border-color: #7ec4cf;">Add note</button>
                     </div>
                 </div>
             </form>
@@ -43,7 +49,7 @@
 
 <main>
     <div class="container">
-      <hr>
+      <hr> <br> <br>
       <section class="text-center mb-4">
         <div class="row wow fadeIn">
           {% for note in notes %}
@@ -54,15 +60,16 @@
                     <p class = "card-text">{{ note.text}}</p>
                     <form action="{% url 'update-note' note.id%}" method="post">
                         {% csrf_token %}
-                        <button id="submit_button" type="submit" class="btn btn-sm btn-success" style="margin:auto; display: block;">
-                            <i class="fas fa-envelope-square"></i>
+                        <button id="submit_button" type="submit" class="btn btn-sm btn-success" style="margin:auto; display: block; background-color: #7ec4cf; border-color: #7ec4cf;">
+                            <i class="fas fa-pen-square"></i>
                         Update
                     </button>
+                    <p></p>
                     </form>
                     <form action="{% url 'delete-note' note.id %}" method="post">
                         {% csrf_token %}
-                        <button id="submit_button" type="submit" class="btn btn-sm btn-success" style="margin:auto; display: block;">
-                            <i class="fas fa-envelope-square"></i>
+                        <button id="submit_button" type="submit" class="btn btn-sm btn-success" style="margin:auto; display: block; background-color: #7ec4cf; border-color: #7ec4cf;">
+                            <i class="fas fa-trash"></i>
                         Delete
                     </button>
                     </form>

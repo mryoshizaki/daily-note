@@ -5,7 +5,7 @@
         {% csrf_token %}
         <center>
         <br />
-        <h2> Create an account with us
+        <h2> Registration
         </h2>
         </center>
         <br />
@@ -16,21 +16,20 @@
         </div>
         <br />
         <br />
-        <br />
-        <br />
         <div class="row" style="margin-left: 15%; margin-right: 15%">
         <div class="col">Enter Username: {{form.username}}</div>
         <div class="col">Enter Email: {{form.email}}</div>
         </div>
         <br />
         <br />
-        <div class="row" style="width: 50%; margin-left: 15%; margin-right: 15%">
+        <div class="row" style="margin-left: 15%; margin-right: 15%">
         <div class="col">Enter Password: {{form.password1}}</div>
-        </div>
-        <br />
-        <div class="row" style="width: 50%; margin-left: 15%; margin-right: 15%">
         <div class="col">Confirm Password: {{form.password2}}</div>
         </div>
+        <br />
+        <!-- <div class="row" style="width: 50%; margin-left: 15%; margin-right: 15%">
+        <div class="col">Confirm Password: {{form.password2}}</div>
+        </div> -->
         <br/>
         <br/>
     </div>
@@ -50,7 +49,7 @@
     {% endfor %} {% endif %}
     <div class="modal-footer">
       <a href="{% url 'index'%}"><button type="button" class="btn btn-secondary">Cancel</button></a>
-      <button id="submit_button" type="submit" class="btn btn-primary">Create Account</button>
+      <button id="submit_button" type="submit" class="btn btn-primary" style="background-color: #7ec4cf; border-color: #7ec4cf;">Create Account</button>
     </div>
 </form>
 

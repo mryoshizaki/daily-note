@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Daily Note</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,17 +10,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
       
   </head>
-<body style="background-color:#f2f7fa">
-    <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #1fbcff">
+<body style="background-color:#d1cfe2">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #eeeeee">
         <div class="container-fluid">
           <div class = "topnav-left">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a class="navbar-brand"href="#">Reminderific</a>
-                </li>
+                </li> -->
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                 <a class="nav-link active" aria-current="page" href="#">
+                 <a class="nav-link active" aria-current="page" href="#" style="font-weight:bold">
+                  <i class="fas fa-sticky-note"></i>
                    Daily Note
                   </a> 
                 </li>
@@ -40,13 +42,9 @@
                 </li>
                 {% else %}
                 <li class="nav-item">
-                  <a class="nav-link active" href="#">
-                    Home
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" href="#">
-                    About us
+                  <a class="nav-link active" href="#" style="font-weight: bold;">
+                    <i class="fas fa-sticky-note"></i>
+                    Daily Note
                   </a>
                 </li>
                 {%  endif  %}
@@ -56,8 +54,9 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 {% if user.is_authenticated %}
                 <li class = "nav-item dropdown">  
-                  <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown">{{ user.username }}
-                  <i class="fas fa-user-circle"></i>
+                  <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown">
+                    <i class="fas fa-user-circle"></i> 
+                    Hi {{ user.first_name }} !
                   </a>
                   <div class="dropdown-menu">
                     <a href="#" class="dropdown-item">Pastel-themed</a>
