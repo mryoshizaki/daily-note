@@ -94,6 +94,7 @@ def update_note(request,pk):
     profile = Note.objects.get(author=user)
     form = UpdateNoteForm(instance = profile)
     record = Note.objects.get(id=pk)
+    notes = Note.objects.filter(author = user)
     try:
         notes = Note.objects.filter(author = user)
         if request.method == 'POST':
@@ -104,14 +105,16 @@ def update_note(request,pk):
         # if(form.is_valid()):
         #     form.save()
         #     print("valid")
+        #     record = Note.objects.get(id=pk)
         #     profile = Note.objects.get(author=user)
-        #     data = {"record":record,'form':form}
-        #     return redirect('update-staff')
+        #     data = {'notes':notes, 'form':form}
+        #     return render(request, 'main/notes/updae_note.html',data)
 
     except ObjectDoesNotExist:
         notes = []
 
-    data = {'notes':notes}
+    # record = Note.objects.get(id=pk)
+    data = {'notes':notes, 'form':form}
     return render(request, 'main/notes/NotesView.html',data)
 
 def delete_note(request,pk):

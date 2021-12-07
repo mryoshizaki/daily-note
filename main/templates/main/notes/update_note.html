@@ -1,0 +1,34 @@
+{% comment %}
+<div class="modal fade" id="note">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Update note</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="update-note " method="post">
+            {% csrf_token %}
+            <div class="modal-body" style="color: black">
+                <div class="modal-body" style="color: black">
+                        <div class="row" style="margin-left: 15%; margin-right: 15%">
+                        </div>
+                        <br />
+                        <div class="row" style="width: 50%; margin-left: 15%; margin-right: 15%">
+                        <div class="col">Title: {{form.title}}</div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="row" style="margin-left: 15%; margin-right: 15%">
+                        <div class="col">Enter note text: {{form.text}}</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button id="submit_button" type="submit" class="btn btn-primary">Add note</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+</div>
+{% endcomment %}

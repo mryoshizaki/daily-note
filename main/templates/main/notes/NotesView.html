@@ -52,7 +52,7 @@
               <div class="card-body text-center">
                   <h5 class = "card-title">{{ note.title}}</h5>
                     <p class = "card-text">{{ note.text}}</p>
-                    <form action="{% url 'update-note' note.id %}" method="post">
+                    <form action="{% url 'update-note' note.id%}" method="post">
                         {% csrf_token %}
                         <button id="submit_button" type="submit" class="btn btn-sm btn-success" style="margin:auto; display: block;">
                             <i class="fas fa-envelope-square"></i>
@@ -75,7 +75,5 @@
     </div>
 </main>
 
-    </div>
-    </div>
-</div>
+
 {% endblock %}
