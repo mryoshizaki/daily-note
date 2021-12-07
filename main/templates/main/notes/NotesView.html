@@ -15,15 +15,15 @@
                 <h5 class="modal-title">Create new note</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="#" method="post">
+            <form action="{% url 'notesview' %}" method="post">
+                {% csrf_token %}
                 <div class="modal-body" style="color: black">
-                    {% csrf_token %}
                     <div class="modal-body" style="color: black">
                             <div class="row" style="margin-left: 15%; margin-right: 15%">
                             </div>
                             <br />
                             <div class="row" style="width: 50%; margin-left: 15%; margin-right: 15%">
-                            <div class="col">Title: {{form.author}}</div>
+                            <div class="col">Title: {{form.title}}</div>
                             </div>
                             <br />
                             <br />
@@ -33,7 +33,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button id="submit_button" type="submit" class="btn btn-primary">Set Appointment</button>
+                        <button id="submit_button" type="submit" class="btn btn-primary">Add note</button>
                     </div>
                 </div>
             </form>
@@ -41,19 +41,39 @@
         </div>
     </div>
 
-
-<table>
-    {% for note in notes %}
-    <td>
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">{{note.title}}</h5>
-              <p class="card-text">{{note.text}}</p>
-              <a href="#" class="card-link">Update</a>
-              <a href="#" class="card-link">Delete</a>
+<main>
+    <div class="container">
+      <hr>
+      <section class="text-center mb-4">
+        <div class="row wow fadeIn">
+          {% for note in notes %}
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+              <div class="card-body text-center">
+                  <h5 class = "card-title">{{ note.title}}</h5>
+                    <p class = "card-text">{{ note.text}}</p>
+                    <form action="{% url 'update-note' note.id%}" method="post">
+                        {% csrf_token %}
+                        <button id="submit_button" type="submit" class="btn btn-sm btn-success" style="margin:auto; display: block;">
+                            <i class="fas fa-envelope-square"></i>
+                        Update
+                    </button>
+                    </form>
+                    <form action="{% url 'delete-note' note.id %}" method="post">
+                        {% csrf_token %}
+                        <button id="submit_button" type="submit" class="btn btn-sm btn-success" style="margin:auto; display: block;">
+                            <i class="fas fa-envelope-square"></i>
+                        Delete
+                    </button>
+                    </form>
+              </div>
             </div>
           </div>
-    </td>
-    {% endfor %}
-</table>
+          {% endfor %}
+        </div>
+      </section>
+    </div>
+</main>
+
+
 {% endblock %}

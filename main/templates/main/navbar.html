@@ -34,7 +34,7 @@
                   </a>
                 </li> 
                 <li class="nav-item">
-                  <a class="nav-link active" href="#">
+                  <a class="nav-link active" href="{% url 'notesview' %}">
                     Notes
                   </a>
                 </li>
@@ -52,17 +52,18 @@
                 {%  endif  %}
               </ul>
           </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
           <div class="topnav-right" id="navbarSupportedContent" >
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 {% if user.is_authenticated %}
-                <li class = "nav-item">  
-                  <a class = "nav-link active" href="#">
-                    <i class="fas fa-user-circle"></i>
-                    {{ user.username }}
+                <li class = "nav-item dropdown">  
+                  <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown">{{ user.username }}
+                  <i class="fas fa-user-circle"></i>
                   </a>
+                  <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item">Pastel-themed</a>
+                    <a href="#" class="dropdown-item">Neutral-themed</a>
+                    <a href="#" class="dropdown-item">Bright-themed</a>
+                </div>
                 </li>
                 <li class = "nav-item">  
                   <a class="nav-link active" href="{% url 'logout' %}">

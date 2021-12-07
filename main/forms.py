@@ -20,12 +20,24 @@ class UserForm(UserCreationForm):
             'email': TextInput(attrs={'class': 'form-control', 'placeholder': 'Email', 'aria-label': 'Email', 'required': True}),
         }
 
-# class NoteForm(forms.ModelForm):
-#     model = Note
-#     fields = "__all__"
-#     widgets = {
-#         'created_date': DateInput(attrs={'class': 'form-control'}),
-#         'text': TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Notes Here', 'aria-label': 'Enter Notes Here', 'required': True}),
-#         'title': TextInput(attrs={'class': 'form-control', 'placeholder': 'Title', 'aria-label': 'Title', 'required': False}),
-#         'author': HiddenInput(attrs={'type':'hidden'})
-#     }
+class NoteForm(ModelForm):
+    class Meta: 
+        model = Note
+        fields = "__all__"
+        widgets = {
+            'created_date': DateInput(attrs={'class': 'form-control'}),
+            'text': Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter Notes Here', 'aria-label': 'Enter Notes Here', 'required': True}),
+            'title': TextInput(attrs={'class': 'form-control', 'placeholder': 'Title', 'aria-label': 'Title', 'required': False}),
+            'author': HiddenInput(attrs={'type':'hidden'})
+        }
+
+class UpdateNoteForm(ModelForm):
+    class Meta: 
+        model = Note
+        fields = "__all__"
+        widgets = {
+            'created_date': DateInput(attrs={'class': 'form-control'}),
+            'text': Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter Notes Here', 'aria-label': 'Enter Notes Here', 'required': True}),
+            'title': TextInput(attrs={'class': 'form-control', 'placeholder': 'Title', 'aria-label': 'Title', 'required': False}),
+            'author': HiddenInput(attrs={'type':'hidden'})
+        }

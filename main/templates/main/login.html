@@ -18,7 +18,7 @@
                             
                     </div>
                     <div>
-                    <p><a href="#">Forgot password?</a></p>
+                    <p><a href="{% url 'password-reset' %}">Forgot password?</a></p>
                     </div>
                     <div>
                         {% for message in messages %} {% if message.tags == 'success' %}
