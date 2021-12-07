@@ -113,9 +113,9 @@ def update_note(request,pk):
     except ObjectDoesNotExist:
         notes = []
 
-    # record = Note.objects.get(id=pk)
-    data = {'notes':notes, 'form':form}
-    return render(request, 'main/notes/NotesView.html',data)
+    record = Note.objects.get(id=pk)
+    data = {'record':record, 'form':form}
+    return render(request, 'main/notes/update_note.html',data)
 
 def delete_note(request,pk):
     user = request.user

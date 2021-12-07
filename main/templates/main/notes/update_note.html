@@ -1,10 +1,8 @@
-{% comment %}
-<div class="modal fade" id="note">
+<div class="modal fade" id="update-note">
     <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">Update note</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h5 class="modal-title">Update note {{record.id}}</h5>
         </div>
         <form action="update-note " method="post">
             {% csrf_token %}
@@ -31,4 +29,3 @@
     </div>
     </div>
 </div>
-{% endcomment %}
