@@ -121,12 +121,20 @@ class CalendarEditForm(CalendarForm):
         return calendar
 
 class EventForm(ModelForm):
+    end_date = DateTimeField(input_formats=["%m.%d.%Y %H:%M"], required=True)
+
+    def set_calendar(self, calendar_id):
+        event = self.instance
+        event.calendar_id = calendar_id
+        self.instance = event
+
     class Meta:
         model = Event
-        exclude = ['start_date', 'calendar_id', 'event_id']
+        exclude = ['start_date', 'calendar_id', 'event_id','calendar']
         widgets = {
-            'end_date': DateInput(attrs={'class': 'form-control'}),
+            'end_date': DateTimeInput(attrs={'class': 'form-control'}),
             'about': Textarea(attrs={'class': 'form-control', 'placeholder': 'Description', 'aria-label': 'Enter Notes Here', 'required': True}),
             'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Title', 'aria-label': 'Title', 'required': False}),
             'event_type': Select(attrs={'class': 'form-control'})
         }
+    
