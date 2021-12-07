@@ -22,8 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("main.urls")),
     path('api-auth/', include('rest_framework.urls'))
-    url(r'^tinymce/', include('tinymce.urls')),
-    
+    url(r'^tinymce/', include('tinymce.urls')),   
 ]
 
 
