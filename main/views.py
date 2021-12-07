@@ -115,7 +115,7 @@ def update_note(request,pk):
 
 def delete_note(request,pk):
     user = request.user
-
+    form = NoteForm()
     try:
         notes = Note.objects.filter(author = user)
         if request.method == 'POST':
@@ -124,7 +124,7 @@ def delete_note(request,pk):
     except ObjectDoesNotExist:
         notes = []
 
-    data = {'notes':notes}
+    data = {'notes':notes,'form':form}
     return render(request, 'main/notes/NotesView.html',data)
 
 #Reset password -----

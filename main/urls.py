@@ -19,4 +19,5 @@ urlpatterns = [
 
     #calendar
     path('calendar-view/', views.calendar_view, name='calendar'),
+    path('tinymce/', include('tinymce.urls')),
 ]
