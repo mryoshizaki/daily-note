@@ -32,7 +32,10 @@ def loginPage(request):
 
         if user is not None:
             login(request, user)
-            return redirect('index')
+            loginuser = user
+            color = Color.objects.get(user = loginuser)
+            data = {'color':color}
+            return render(request,"main/index.html",data)
         else:
             messages.info(request, "Username or Password is incorrect.")
             return redirect('login')
@@ -56,6 +59,11 @@ def registerPage(request):
 
             messages.success(request, 'Account creation success.')
 
+            
+            user = User.objects.get(username = form.cleaned_data.get('username'))
+            colorform = Colorform({'user':user,'value_navbar':"#a75e2f",'value_background':"#e8d9ce"})
+            if(colorform.is_valid()):
+                colorform.save()
             return redirect('login')
 
     context = {'form': form}
@@ -69,6 +77,7 @@ def Notes_View(request):
     user = request.user
     # notes = Note.objects.filter(author = user)
     # notes = []
+    color = Color.objects.get(user = user)
     try:
         notes = Note.objects.filter(author = user)
     except ObjectDoesNotExist:
@@ -86,13 +95,14 @@ def Notes_View(request):
             # print(form)
         else:
             print(form.errors)
-    data = {'notes':notes, 'form':form}
+    data = {'notes':notes, 'form':form,'color':color}
     return render(request, 'main/notes/NotesView.html',data)
     
 
 def update_note(request,pk):
     # user = request.user
     note = Note.objects.get(id=pk)
+    color = Color.objects.get(user = user)
     user = note.author
     form = UpdateNoteForm(instance = note)
     if(request.method=="POST"):   
@@ -105,7 +115,7 @@ def update_note(request,pk):
         print("valid")
         note = Note.objects.get(id=pk)
         data = {"note":note,'form':form}
-    data = {"note":note,'form':form}
+    data = {"note":note,'form':form,'color':color}
     return render(request, "main/notes/update_note.html",data)
 
 def delete_note(request,pk):
@@ -118,8 +128,8 @@ def delete_note(request,pk):
             note.delete()
     except ObjectDoesNotExist:
         notes = []
-
-    data = {'notes':notes,'form':form}
+    color = Color.objects.get(user = user)
+    data = {'notes':notes,'form':form,'color':color}
     return render(request, 'main/notes/NotesView.html',data)
 
 #Reset password -----
@@ -156,6 +166,7 @@ def passwordReset(request):
 #Calendar
 
 def calendar_view(request):
+    color = Color.objects.get(user = request.user)
     if request.POST:
         if request.POST['action'] == 'create':
             form = CalendarForm(request.POST)
@@ -181,5 +192,44 @@ def calendar_view(request):
 
     my_calendars = queryset
 
-    data = {'calendars':calendars, 'createform':createform, 'editform':editform,'my_calendars':my_calendars}
+    data = {'calendars':calendars, 'createform':createform, 'editform':editform,'my_calendars':my_calendars,'color':color}
     return render(request, 'main/calendar/calendar.html',data)
+
+def Pastel_Themed(request):
+    user = request.user
+    color = Color.objects.get(user = user)
+    colorform = Colorform({'user':user,'value_navbar':"#eeeeee",'value_background':"#d1cfe2"},instance=color)
+    if(colorform.is_valid()):
+        colorform.save()
+        print("it saved")
+    else:
+        print(colorform.errors)
+    color = Color.objects.get(user = user)
+    data = {'color':color}
+    return render(request, "main/index.html",data)
+
+def Neutral_Themed(request):
+    user = request.user
+    color = Color.objects.get(user = user)
+    colorform = Colorform({'user':user,'value_navbar':"#a75e2f",'value_background':"#e8d9ce"},instance=color)
+    if(colorform.is_valid()):
+        colorform.save()
+        print("it saved")
+    else:
+        print(colorform.errors)
+    color = Color.objects.get(user = user)
+    data = {'color':color}
+    return render(request, "main/index.html",data)
+
+def Bright_Themed(request):
+    user = request.user
+    color = Color.objects.get(user = user)
+    colorform = Colorform({'user':user,'value_navbar':"#00c69e",'value_background':"#e2c1fe"},instance=color)
+    if(colorform.is_valid()):
+        colorform.save()
+        print("it saved")
+    else:
+        print(colorform.errors)
+    color = Color.objects.get(user = user)
+    data = {'color':color}
+    return render(request, "main/index.html",data)

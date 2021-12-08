@@ -20,6 +20,14 @@ class UserForm(UserCreationForm):
             'email': TextInput(attrs={'class': 'form-control', 'placeholder': 'Email', 'aria-label': 'Email', 'required': True}),
         }
 
+class Colorform(ModelForm):
+    class Meta:
+        model=Color
+        fields = "__all__"
+        widgets = {
+            'user': HiddenInput(attrs={'type':'hidden'})
+        }
+
 class NoteForm(ModelForm):
     class Meta: 
         model = Note

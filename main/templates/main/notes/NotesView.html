@@ -2,8 +2,8 @@
 {% block content %}
 {{form.media}}
 </head>
-<body style="background-color:#d1cfe2">
-    <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #eeeeee">
+<body style="background-color:{{color.value_background}}">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: {{color.value_navbar}}">
         <div class="container-fluid">
           <div class = "topnav-left">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -51,9 +51,9 @@
                     Hi {{ user.first_name }} !
                   </a>
                   <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">Pastel-themed</a>
-                    <a href="#" class="dropdown-item">Neutral-themed</a>
-                    <a href="#" class="dropdown-item">Bright-themed</a>
+                    <a href="{% url 'pastel-themed' %}" class="dropdown-item">Pastel-themed</a>
+                    <a href="{% url 'neutral-themed' %}" class="dropdown-item">Neutral-themed</a>
+                    <a href="{% url 'bright-themed' %}" class="dropdown-item">Bright-themed</a>
                 </div>
                 </li>
                 <li class = "nav-item">  

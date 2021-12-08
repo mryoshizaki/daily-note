@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     {% block content %}
   </head>
-<body style="background-color:#d1cfe2">
-    <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #eeeeee">
+<body style="background-color:">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: {{color.value_navbar}}">
         <div class="container-fluid">
           <div class = "topnav-left">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -59,9 +59,9 @@
                     Hi {{ user.first_name }} !
                   </a>
                   <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">Pastel-themed</a>
-                    <a href="#" class="dropdown-item">Neutral-themed</a>
-                    <a href="#" class="dropdown-item">Bright-themed</a>
+                    <a href="{% url 'pastel-themed' %}" class="dropdown-item">Pastel-themed</a>
+                    <a href="{% url 'neutral-themed' %}" class="dropdown-item">Neutral-themed</a>
+                    <a href="{% url 'bright-themed' %}" class="dropdown-item">Bright-themed</a>
                 </div>
                 </li>
                 <li class = "nav-item">  

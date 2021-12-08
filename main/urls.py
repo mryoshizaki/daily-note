@@ -20,5 +20,10 @@ urlpatterns = [
     
     #calendar
     path('calendar-view/', views.calendar_view, name='calendar'),
+
+    #color-theme
+    path('pastel-themed/',views.Pastel_Themed,name='pastel-themed'),
+    path('neutral-themed/',views.Neutral_Themed,name='neutral-themed'),
+    path('bright-themed/',views.Bright_Themed,name='bright-themed'),
     
 ]

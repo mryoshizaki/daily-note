@@ -18,8 +18,9 @@
     <link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
 
   </head>
-<body style="background-color:#d1cfe2">
-    <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #eeeeee">
+{% if user.is_authenticated %}
+<body style="background-color:{{color.value_background}}">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: {{color.value_navbar}}">
         <div class="container-fluid">
           <div class = "topnav-left">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -67,9 +68,9 @@
                     Hi {{ user.first_name }} !
                   </a>
                   <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">Pastel-themed</a>
-                    <a href="#" class="dropdown-item">Neutral-themed</a>
-                    <a href="#" class="dropdown-item">Bright-themed</a>
+                    <a href="{% url 'pastel-themed' %}" class="dropdown-item">Pastel-themed</a>
+                    <a href="{% url 'neutral-themed' %}" class="dropdown-item">Neutral-themed</a>
+                    <a href="{% url 'bright-themed' %}" class="dropdown-item">Bright-themed</a>
                 </div>
                 </li>
                 <li class = "nav-item">  
@@ -96,7 +97,86 @@
           </div>
         </div>
       </nav>
-
+      {% else %}
+      <body style="background-color:#d1cfe2">
+        <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #eeeeee">
+            <div class="container-fluid">
+              <div class = "topnav-left">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- <li class="nav-item">
+                      <a class="navbar-brand"href="#">Reminderific</a>
+                    </li> -->
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                     <a class="nav-link active" aria-current="page" href="#" style="font-weight:bold">
+                      <i class="fas fa-sticky-note"></i>
+                       Daily Note
+                      </a> 
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#">
+                        Dashboard
+                      </a>
+                    </li>   
+                    <li class="nav-item">
+                      <a class="nav-link active" href="{% url 'calendar' %}">
+                        Calendar
+                      </a>
+                    </li> 
+                    <li class="nav-item">
+                      <a class="nav-link active" href="{% url 'notesview' %}">
+                        Notes
+                      </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#" style="font-weight: bold;">
+                        <i class="fas fa-sticky-note"></i>
+                        Daily Note
+                      </a>
+                    </li>
+                    {%  endif  %}
+                  </ul>
+              </div>
+              <div class="topnav-right" id="navbarSupportedContent" >
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% if user.is_authenticated %}
+                    <li class = "nav-item dropdown">  
+                      <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle"></i> 
+                        Hi {{ user.first_name }} !
+                      </a>
+                      <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Pastel-themed</a>
+                        <a href="#" class="dropdown-item">Neutral-themed</a>
+                        <a href="#" class="dropdown-item">Bright-themed</a>
+                    </div>
+                    </li>
+                    <li class = "nav-item">  
+                      <a class="nav-link active" href="{% url 'logout' %}">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        Logout</a>
+                    </li>
+                    {% else %}
+                    <li class = "nav-item">  
+                      <a class="nav-link active" href="{% url 'login' %}">
+                        Login</a>
+                    </li>
+                    <li class = "nav-item">  
+                      <a class="nav-link active" href="{% url 'register' %}">
+                        Register</a>
+                  </li>
+                    {% endif %}
+                </ul>
+    
+                <!-- <form class="d-flex">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                </form> -->
+              </div>
+            </div>
+          </nav>
+        {% endif %}
       {% block content %}
 
       {% endblock %}
