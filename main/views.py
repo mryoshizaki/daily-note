@@ -233,10 +233,15 @@ def Bright_Themed(request):
     data = {'color':color}
     return render(request, "main/index.html",data)
 
+#dashboard
+
 def dashboard(request):
     user = request.user
     color = Color.objects.get(user = user)
-    notExist = ""
-
-    data = {'color':color,'notExist':notExist}
+    events = Event.objects.filter(user=user).filter(event_type="Event")
+    event_count = events.count()
+    tasks = Event.objects.filter(user=user).filter(event_type="Task")
+    task_count = tasks.count()
+    notExist = ""    
+    data = {'color':color,'notExist':notExist, 'events':events, 'tasks':tasks, 'event_count':event_count, 'task_count':task_count }
     return render(request, "main/dashboard.html",data)
