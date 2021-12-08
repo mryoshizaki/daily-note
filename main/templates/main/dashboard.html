@@ -9,7 +9,6 @@
     <h2 class = "todo">{{ todo_count }} to-do</h2> 
 
 
-
 <div class = "row">
     <div class = "column">
         <h2> Event List </h2>
@@ -51,13 +50,13 @@
             <h3>{{notExist}}</h3>
             {% endif %}
         
-            {% for event in events %}
+            {% for todo in todos %}
             
             <tr>
-                <td>{{event.event_id}}</td>
-                <td>{{patient.name}</td>
-                <td>{{patient.start_date}}</td>
-                <td>{{patient.start_date}}</td>
+                <td>{{todo.event_id}}</td>
+                <td>{{todo.name}</td>
+                <td>{{todo.start_date}}</td>
+                <td>{{todo.start_date}}</td>
             </tr>
             {% endfor %}
         </table>
