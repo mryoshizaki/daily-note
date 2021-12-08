@@ -1,3 +1,4 @@
+from django.http.response import BadHeaderError
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import *
@@ -164,7 +165,6 @@ def passwordReset(request):
 
 
 #Calendar
-
 def create_event(request):
     user = request.user
     color = Color.objects.get(user = user)
@@ -175,7 +175,7 @@ def create_event(request):
 
     form = EventForm()
     if request.method == 'POST':
-        form = NoteForm({'user':request.user,'name':request.POST.get('name'),
+        form = EventForm({'user':request.user,'name':request.POST.get('name'),
                         'about':request.POST.get('about'),'start_date':request.POST.get('start_date'),
                         'end_date':request.POST.get('end_date'),'event_type':request.POST.get('event_type'),})
         if form.is_valid():
@@ -183,6 +183,8 @@ def create_event(request):
             events = Event.objects.filter(user=user)
             form = EventForm()
             print("saved form")
+            data = {'events':events, 'form':form,'color':color}
+            return render(request, 'main/calendar/calendar.html',data)
             # print(form)
         else:
             print(form.errors)

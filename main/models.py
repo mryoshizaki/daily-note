@@ -4,6 +4,14 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from tinymce.models import HTMLField
 
+
+TYPE_CHOICES = [
+        ("TASK", 'Task'),
+        ("EVENT", 'Event'),
+    ]
+
+
+
 # Create your models here.
 class Color(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
@@ -23,10 +31,6 @@ class Note(models.Model):
         return self.title
 
 class Event(models.Model):
-    TYPE_CHOICES = [
-        ("TASK", 'Task'),
-        ("EVENT", 'Event'),
-    ]
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     event_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)

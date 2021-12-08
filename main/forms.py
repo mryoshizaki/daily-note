@@ -1,5 +1,6 @@
+from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
-from django.forms.widgets import *
+from django.forms.widgets import DateTimeInput, Select
 from django.forms import *
 from .models import *
 
@@ -48,15 +49,20 @@ class UpdateNoteForm(ModelForm):
             'author': HiddenInput(attrs={'type':'hidden'})
         }
 
+class DateTimeInput(DateTimeInput):
+    input_type = 'datetime'
+    input_formats = settings.DATETIME_INPUT_FORMATS
+    attrs = {'class': 'form-control'}
 
 class EventForm(ModelForm):
-    end_date = DateTimeField(input_formats=["%m.%d.%Y %H:%M"], required=True)
+    # end_date = DateTimeField(input_formats=["%m/%d/%Y %G %A"], required=True)
 
     class Meta:
         model = Event
-        exclude = ['start_date','event_id','calendar']
+        exclude = ['event_id']
         widgets = {
-            'end_date': DateTimeInput(attrs={'class': 'form-control'}),
+            'start_date': DateTimeInput(attrs={'class': 'form-control','placeholder': 'mm/dd/yyyy hh:mm:ss', 'aria-label': 'Start Date', 'required': True}),
+            'end_date': DateTimeInput(attrs={'class': 'form-control','placeholder': 'mm/dd/yyyy hh:mm:ss', 'aria-label': 'End Date', 'required': True}),
             'about': Textarea(attrs={'class': 'form-control', 'placeholder': 'Description', 'aria-label': 'Enter Notes Here', 'required': True}),
             'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Title', 'aria-label': 'Title', 'required': False}),
             'event_type': Select(attrs={'class': 'form-control'}),
