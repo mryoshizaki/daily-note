@@ -44,7 +44,6 @@ class UpdateNoteForm(ModelForm):
         fields = "__all__"
         widgets = {
             'created_date': DateInput(attrs={'class': 'form-control'}),
-            'text': Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter Notes Here', 'aria-label': 'Enter Notes Here', 'required': True}),
             'title': TextInput(attrs={'class': 'form-control', 'placeholder': 'Title', 'aria-label': 'Title', 'required': False}),
             'author': HiddenInput(attrs={'type':'hidden'})
         }

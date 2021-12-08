@@ -25,5 +25,8 @@ urlpatterns = [
     path('pastel-themed/',views.Pastel_Themed,name='pastel-themed'),
     path('neutral-themed/',views.Neutral_Themed,name='neutral-themed'),
     path('bright-themed/',views.Bright_Themed,name='bright-themed'),
+
+    #dashboard
+    path('dashboard/', views.dashboard, name='dashboard'),
     
 ]

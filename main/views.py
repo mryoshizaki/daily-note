@@ -98,17 +98,16 @@ def Notes_View(request):
     data = {'notes':notes, 'form':form,'color':color}
     return render(request, 'main/notes/NotesView.html',data)
     
-
 def update_note(request,pk):
-    # user = request.user
+    user = request.user
     note = Note.objects.get(id=pk)
     color = Color.objects.get(user = user)
     user = note.author
     form = UpdateNoteForm(instance = note)
     if(request.method=="POST"):   
         user = User.objects.get(username=user)
-        form = NoteForm({'author':request.user,'title':request.POST.get('title'),
-            'text':request.POST.get('text')}, instance = note)
+        form = NoteForm({'author':request.user,'title':request.POST.get('title')}, 
+        instance = note)
     print(form.errors)
     if form.is_valid():
         form.save()
@@ -233,3 +232,12 @@ def Bright_Themed(request):
     color = Color.objects.get(user = user)
     data = {'color':color}
     return render(request, "main/index.html",data)
+
+def dashboard(request):
+    user = request.user
+    color = Color.objects.get(user = user)
+    notExist = ""
+
+
+    data = {'color':color,'notExist':notExist}
+    return render(request, "main/dashboard.html",data)
