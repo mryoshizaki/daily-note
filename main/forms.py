@@ -61,8 +61,8 @@ class EventForm(ModelForm):
         model = Event
         exclude = ['event_id']
         widgets = {
-            'start_date': DateTimeInput(attrs={'class': 'form-control','placeholder': 'mm/dd/yyyy hh:mm:ss', 'aria-label': 'Start Date', 'required': True}),
-            'end_date': DateTimeInput(attrs={'class': 'form-control','placeholder': 'mm/dd/yyyy hh:mm:ss', 'aria-label': 'End Date', 'required': True}),
+            # 'start_date': DateTimeInput(attrs={'class': 'form-control','placeholder': 'mm/dd/yyyy hh:mm:ss', 'aria-label': 'Start Date', 'required': False}),
+            # 'end_date': DateTimeInput(attrs={'class': 'form-control','placeholder': 'mm/dd/yyyy hh:mm:ss', 'aria-label': 'End Date', 'required': False}),
             'about': Textarea(attrs={'class': 'form-control', 'placeholder': 'Description', 'aria-label': 'Enter Notes Here', 'required': True}),
             'name': TextInput(attrs={'class': 'form-control', 'placeholder': 'Title', 'aria-label': 'Title', 'required': False}),
             'event_type': Select(attrs={'class': 'form-control'}),
