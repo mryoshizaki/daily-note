@@ -19,7 +19,7 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
     
     #calendar
-    path('calendar-view/', views.calendar_view, name='calendar'),
+    path('calendar-view/', views.create_event, name='calendar'),
 
     #color-theme
     path('pastel-themed/',views.Pastel_Themed,name='pastel-themed'),

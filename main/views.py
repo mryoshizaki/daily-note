@@ -15,7 +15,6 @@ from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.template.loader import render_to_string
 from mysite.settings import EMAIL_HOST_USER
-from .serializers import *
 
 
 # Create your views here.
@@ -72,6 +71,8 @@ def registerPage(request):
 def logoutPage(request):
     logout(request)
     return render(request, "main/index.html")
+
+#Notes
 
 def Notes_View(request):
     user = request.user
@@ -164,35 +165,32 @@ def passwordReset(request):
 
 #Calendar
 
-def calendar_view(request):
-    color = Color.objects.get(user = request.user)
-    if request.POST:
-        if request.POST['action'] == 'create':
-            form = CalendarForm(request.POST)
-            if form.is_valid():
-                form.set_owner(request.user)
-                form.save()
+def create_event(request):
+    user = request.user
+    color = Color.objects.get(user = user)
+    try:
+        events = Event.objects.filter(user = user)
+    except ObjectDoesNotExist:
+        events = []
 
-        if request.POST['action'] == 'edit':
-            form = CalendarEditForm(request.POST)
-            if form.is_valid():
-                form.save(commit=True)
-
-        if request.POST['action'] == 'delete':
-            calendar = Calendar.objects.get(calendar_id=request.POST["calendar_id"])
-            if calendar.owner == request.user:
-                calendar.delete()
-
-    queryset = Calendar.objects.filter(owner=request.user.pk)
-    calendars = CalendarSerializer(queryset, many=True).data
-
-    createform = CalendarForm()
-    editform = CalendarEditForm(initial={"user_id": request.user.pk, "owner": request.user})
-
-    my_calendars = queryset
-
-    data = {'calendars':calendars, 'createform':createform, 'editform':editform,'my_calendars':my_calendars,'color':color}
+    form = EventForm()
+    if request.method == 'POST':
+        form = NoteForm({'user':request.user,'name':request.POST.get('name'),
+                        'about':request.POST.get('about'),'start_date':request.POST.get('start_date'),
+                        'end_date':request.POST.get('end_date'),'event_type':request.POST.get('event_type'),})
+        if form.is_valid():
+            form.save()
+            events = Event.objects.filter(user=user)
+            form = EventForm()
+            print("saved form")
+            # print(form)
+        else:
+            print(form.errors)
+    data = {'events':events, 'form':form,'color':color}
     return render(request, 'main/calendar/calendar.html',data)
+
+
+#Theme
 
 def Pastel_Themed(request):
     user = request.user
