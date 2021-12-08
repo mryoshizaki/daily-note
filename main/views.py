@@ -238,6 +238,5 @@ def dashboard(request):
     color = Color.objects.get(user = user)
     notExist = ""
 
-
     data = {'color':color,'notExist':notExist}
     return render(request, "main/dashboard.html",data)

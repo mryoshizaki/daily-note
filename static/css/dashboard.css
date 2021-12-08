@@ -35,3 +35,15 @@
   tr:nth-child(even) {
     background-color: #f2f2f2;
   }
+
+  .event{
+    display:inline-block;
+    background-color: #f2f2f2;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  .todo{
+    display:inline-block;
+    background-color: pink;
+  }
