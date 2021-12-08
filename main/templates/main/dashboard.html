@@ -1,25 +1,62 @@
 {% extends 'main/navbar.html' %} 
+{%block content%}
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}"/>
+</head>
 
-<table class="table table-light table-striped table-bordered table-sm table-hover">
+<div class = "row">
+    <div class = "column">
+        <h2> Event List </h2>
+        <table class="table table-light table-striped table-bordered table-sm table-hover">
 				
-    <tr>
-        <th>Event #</th>
-        <th>First Name</th>
-        <th>Start date</th>
-        <th>End date</th>
-    </tr>
-    {% if notExist != "" %}
-    <h3>{{notExist}}</h3>
-    {% endif %}
+            <tr>
+                <th>Event #</th>
+                <th>Event Name</th>
+                <th>Start date</th>
+                <th>End date</th>
+            </tr>
+            {% if notExist != "" %}
+            <h3>{{notExist}}</h3>
+            {% endif %}
+        
+            {% for event in events %}
+            
+            <tr>
+                <td>{{event.event_id}}</td>
+                <td>{{patient.name}</td>
+                <td>{{patient.start_date}}</td>
+                <td>{{patient.start_date}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 
-    {% for event in events %}
-    
-    <tr>
-        <td>{{event.event_id}}</td>
-        <td>{{patient.name}</td>
-        <td>{{patient.start_date}}</td>
-        <td>{{patient.start_date}}</td>
-    </tr>
-    {% endfor %}
+    <div class = "column">
+        <h2> To do List </h2>
+        <table class="table table-light table-striped table-bordered table-sm table-hover">
+				
+            <tr>
+                <th>To do #</th>
+                <th>Name</th>
+                <th>Start date</th>
+                <th>End date</th>
+            </tr>
+            {% if notExist != "" %}
+            <h3>{{notExist}}</h3>
+            {% endif %}
+        
+            {% for event in events %}
+            
+            <tr>
+                <td>{{event.event_id}}</td>
+                <td>{{patient.name}</td>
+                <td>{{patient.start_date}}</td>
+                <td>{{patient.start_date}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
 
-</table>
+{% endblock %}
