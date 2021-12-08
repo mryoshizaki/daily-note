@@ -16,5 +16,7 @@ pip install -r requirements.txt
 #note: if may iinstall kayong bagong module please do this after the installation:
 pip freeze > requirements.txt
 
+#note: do collectstatic
+
 
 

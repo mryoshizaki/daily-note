@@ -19,11 +19,14 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
     
     #calendar
-    path('calendar-view/', views.calendar_view, name='calendar'),
+    path('calendar-view/', views.create_event, name='calendar'),
 
     #color-theme
     path('pastel-themed/',views.Pastel_Themed,name='pastel-themed'),
     path('neutral-themed/',views.Neutral_Themed,name='neutral-themed'),
     path('bright-themed/',views.Bright_Themed,name='bright-themed'),
+
+    #dashboard
+    path('dashboard/', views.dashboard, name='dashboard'),
     
 ]

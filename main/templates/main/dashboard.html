@@ -1,0 +1,66 @@
+{% extends 'main/navbar.html' %} 
+{%block content%}
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}"/>
+</head>
+<br><br>
+    <h2 class = "event">{{ event_count }} events</h2>
+    <h2 class = "todo">{{ todo_count }} to-do</h2> 
+
+
+<div class = "row">
+    <div class = "column">
+        <h2> Event List </h2>
+        <table class="table table-light table-striped table-bordered table-sm table-hover">
+				
+            <tr>
+                <th>Event #</th>
+                <th>Event Name</th>
+                <th>Start date</th>
+                <th>End date</th>
+            </tr>
+            {% if notExist != "" %}
+            <h3>{{notExist}}</h3>
+            {% endif %}
+        
+            {% for event in events %}
+            
+            <tr>
+                <td>{{event.event_id}}</td>
+                <td>{{patient.name}</td>
+                <td>{{patient.start_date}}</td>
+                <td>{{patient.start_date}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class = "column">
+        <h2> To do List </h2>
+        <table class="table table-light table-striped table-bordered table-sm table-hover">
+				
+            <tr>
+                <th>To do #</th>
+                <th>Name</th>
+                <th>Start date</th>
+                <th>End date</th>
+            </tr>
+            {% if notExist != "" %}
+            <h3>{{notExist}}</h3>
+            {% endif %}
+        
+            {% for todo in todos %}
+            
+            <tr>
+                <td>{{todo.event_id}}</td>
+                <td>{{todo.name}</td>
+                <td>{{todo.start_date}}</td>
+                <td>{{todo.start_date}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}
