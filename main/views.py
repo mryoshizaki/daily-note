@@ -105,18 +105,18 @@ def update_note(request,pk):
     note = Note.objects.get(id=pk)
     color = Color.objects.get(user = user)
     user = note.author
-    form = UpdateNoteForm(instance = note)
+    form = NoteForm(instance = note)
     if(request.method=="POST"):   
         form = NoteForm({'author':user,'title':request.POST.get('title'),
             'text':request.POST.get('text')}, instance = note)
-    
-    if form.is_valid():
-        form.save()
-        notes = Note.objects.filter(author = user)
-        data = {"notes":notes,'form':form,'color':color}
-        return render(request, "main/notes/notesView.html",data)
-    else:
-        print(form.errors)
+        if form.is_valid():
+            form.save()
+            notes = Note.objects.filter(author = user)
+            data = {"notes":notes,'form':form,'color':color}
+            return render(request, "main/notes/notesView.html",data)
+        else:
+            print("kldnasldk")
+            print(form.errors)
     data = {"note":note,'form':form,'color':color}
     return render(request, "main/notes/update_note.html",data)
 

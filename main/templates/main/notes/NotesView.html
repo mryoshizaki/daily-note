@@ -139,7 +139,7 @@
               <div class="card-body text-center">
                   <h5 class = "card-title">{{ note.title}}</h5>
                     <p class = "card-text">{% autoescape off %}{{note.text}}{% endautoescape %}</p>
-                    <form action="{% url 'update-note' note.id%}" method="post">
+                    <form action="{% url 'update-note' note.id%}">
                         {% csrf_token %}
                         <button id="submit_button" type="submit" class="btn btn-sm btn-success" style="margin:auto; display: block; background-color: #7ec4cf; border-color: #7ec4cf;">
                             <i class="fas fa-pen-square"></i>
