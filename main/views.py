@@ -120,6 +120,11 @@ def update_note(request,pk):
     data = {"note":note,'form':form,'color':color}
     return render(request, "main/notes/update_note.html",data)
 
+def Cancel_Update_Notes(request):
+
+    
+    return render(request, 'main/notes/NotesView.html')
+
 def delete_note(request,pk):
     user = request.user
     form = NoteForm()
