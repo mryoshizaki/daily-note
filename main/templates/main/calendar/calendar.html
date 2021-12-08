@@ -103,7 +103,7 @@
 
 <!-- {{ calendars|json_script:"calendar_data" }} -->
 <script>
-    
+    const myEvents = "{{ events }}";
     document.addEventListener("DOMContentLoaded", function () {
 
         var modal = document.getElementById("eventModal");
@@ -127,11 +127,10 @@
             right: 'dayGridMonth,timeGridWeek,timeGridDay,addEventButton'},
 
             // display event
-            // resources:[
-            // for (let i = 0; i < 5; i++) {
-            //     text += "The number is " + i + "<br>";
-            //     }
-            // ],
+            resources:[
+
+            
+            ],
 
             
             events:{},
