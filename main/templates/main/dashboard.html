@@ -6,7 +6,7 @@
 </head>
 <br><br>
     <h2 class = "event">{{ event_count }} events</h2>
-    <h2 class = "todo">{{ todo_count }} to-do</h2> 
+    <h2 class = "todo">{{ task_count }} to-do</h2> 
 
 
 <div class = "row">
@@ -17,21 +17,18 @@
             <tr>
                 <th>Event #</th>
                 <th>Event Name</th>
-                <th>Start date</th>
-                <th>End date</th>
+                <th>Date</th>
             </tr>
             {% if notExist != "" %}
             <h3>{{notExist}}</h3>
             {% endif %}
         
             {% for event in events %}
-            
-            <tr>
-                <td>{{event.event_id}}</td>
-                <td>{{patient.name}</td>
-                <td>{{patient.start_date}}</td>
-                <td>{{patient.start_date}}</td>
-            </tr>
+                <tr>
+                    <td>{{event.event_id}}</td>
+                    <td>{{event.name}}</td>
+                    <td>{{event.start_date}}</td>
+                </tr>
             {% endfor %}
         </table>
     </div>
@@ -43,21 +40,18 @@
             <tr>
                 <th>To do #</th>
                 <th>Name</th>
-                <th>Start date</th>
-                <th>End date</th>
+                <th>Date</th>
             </tr>
             {% if notExist != "" %}
             <h3>{{notExist}}</h3>
             {% endif %}
         
-            {% for todo in todos %}
-            
-            <tr>
-                <td>{{todo.event_id}}</td>
-                <td>{{todo.name}</td>
-                <td>{{todo.start_date}}</td>
-                <td>{{todo.start_date}}</td>
-            </tr>
+            {% for task in tasks %}
+                <tr>
+                    <td>{{task.event_id}}</td>
+                    <td>{{task.name}}</td>
+                    <td>{{task.end_date}}</td>
+                </tr>
             {% endfor %}
         </table>
     </div>
