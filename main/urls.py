@@ -21,6 +21,8 @@ urlpatterns = [
     
     #calendar
     path('calendar-view/', views.create_event, name='calendar'),
+    path('view-calendar/update/<pk>', views.update_event, name='update-event'),
+    path('view-calendar/delete/<pk>', views.delete_event, name='delete-event'),
 
     #color-theme
     path('pastel-themed/',views.Pastel_Themed,name='pastel-themed'),
