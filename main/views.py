@@ -299,15 +299,15 @@ def update_event(request,pk):
     color = Color.objects.get(user=user)
     form = EventForm(instance = event)
     if(request.method == 'POST'):
-        event = EventForm({'user':user,
+        form = EventForm({'user':user,
         'name':request.POST.get('name'),
         'about':request.POST.get('about'),
         'start_date':request.POST.get('start_date'),
         'end_date':request.POST.get('end_date'),
-        'event_type':request.POST.get('event_type')})
+        'event_type':request.POST.get('event_type')},
+        instance=event)
         if form.is_valid():
             form.save()
-            events = Event.object.filter(user = user)
             return redirect('dashboard')
         else:
             print("kldnasldk")
