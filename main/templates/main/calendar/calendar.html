@@ -25,6 +25,10 @@
   padding: 20px 0px 0px 5px;
 }
 
+.calendar td:hover{
+  background-color: whitesmoke;
+}
+
 .month {
   font-size: 25px;
 }
@@ -36,25 +40,31 @@
 ul {
   height: 100%;
   padding: 0px 5px 0px 20px;
+  color: navy;
 }
 
-a {
-  color: #17a2b8;
-}
-
-.left {
+/* .left {
   float: left;
 }
 
 .right {
   float: right;
-}
+} */
 
-.btn {
+.btn.left{
   outline: none;
   color: white;
   background-color: gray;
   box-shadow: 0 0 0 0;
+  float: left;
+}
+
+.btn.right{
+  outline: none;
+  color: white;
+  background-color: gray;
+  box-shadow: 0 0 0 0;
+  float: right;
 }
 
 .clearfix {
@@ -64,8 +74,8 @@ a {
 
 <div class="clearfix" id="calendar">
     <div class="btn-group" role="group" aria-label="Basic example">
-	<a class="btn  left" href="{'% url 'calendar' %}?{{ prev_month }}"> Prev </a>
-    <a class="btn  left" href="{'% url 'calendar' %}?{{ next_month }}"> Next </a>
+	<a class="btn left" href="{'% url 'calendar' %}?{{ prev_month }}"> Prev </a>
+    <a class="btn left" href="{'% url 'calendar' %}?{{ next_month }}"> Next </a>
     </div>
     <a class="btn  right" data-bs-toggle="modal" data-bs-target="#eventModal"> New Event </a>
 	

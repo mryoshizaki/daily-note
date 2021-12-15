@@ -196,9 +196,10 @@ class CalendarView(generic.ListView):
         cal = Calendar(d.year, d.month)
 
         # Call the formatmonth method, which returns our calendar as a table
-        html_cal = cal.formatmonth(withyear=True)
+        html_cal = cal.formatmonth(user, withyear=True)
         context['color'] = color
         context['form'] = form
+        # context['events'] = events
         # context['request'] = request
         context['calendar'] = mark_safe(html_cal)
         return context
