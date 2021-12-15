@@ -25,7 +25,7 @@ urlpatterns = [
     path('calendar-view/<int>', views.CalendarView.as_view(), name='calendar'),
     path('create-event/', views.create_event, name='create-event'),
     path('delete-event/<pk>', views.delete_event, name='delete-event'),
-    path('update-event/<pk>', views.delete_event, name='update-event'),
+    path('update-event/<pk>', views.update_event, name='update-event'),
 
     #color-theme
     path('pastel-themed/',views.Pastel_Themed,name='pastel-themed'),

@@ -295,7 +295,7 @@ def delete_event(request,pk):
 
 def update_event(request,pk):
     user = request.user
-    event = Event.objects.get(id=pk)
+    event = Event.objects.get(event_id=pk)
     color = Color.objects.get(user=user)
     form = EventForm(instance = event)
     if(request.method == 'POST'):
@@ -305,7 +305,7 @@ def update_event(request,pk):
         'start_date':request.POST.get('start_date'),
         'end_date':request.POST.get('end_date'),
         'event_type':request.POST.get('event_type')})
-        if form.is_valid:
+        if form.is_valid():
             form.save()
             events = Event.object.filter(user = user)
             return redirect('dashboard')
@@ -313,7 +313,7 @@ def update_event(request,pk):
             print("kldnasldk")
             print(form.errors)
     data = {"event":event,'form':form,'color':color}
-    return render(request, "main/notes/update_event.html",data)
+    return render(request, "main/calendar/update_event.html",data)
 
 #Theme
 
