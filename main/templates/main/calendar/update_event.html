@@ -61,6 +61,18 @@
                     <i class="fa-solid fa-right-from-bracket"></i>
                     Logout</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" href="{% url 'about' %}">
+                    Help
+                  </a>
+                  <div class="dropdown-menu" style="position: absolute; margin-left: 25%;">
+                    <a href="{% url 'about' %}" class="dropdown-item">About Daily Note</a>
+                    <a href="{% url 'helpdash' %}" class="dropdown-item">Dashboard Guide</a>
+                    <a href="{% url 'helpcal' %}" class="dropdown-item">Calendar Guide</a>
+                    <a href="{% url 'helpnotes' %}" class="dropdown-item">Notes Guide</a>
+                    <a href="{% url 'helpthemes' %}" class="dropdown-item">Themes Guide</a>
+                </div>
+                </li>
                 {% else %}
                 <li class = "nav-item">  
                   <a class="nav-link active" href="{% url 'login' %}">
@@ -85,7 +97,7 @@
 <br> <br>
 
 
-<form method="post">
+<form action="{% url 'update-event' event.event_id %}" method="post">
     {% csrf_token %}
                 <div class="row" style="margin-left: 15%; margin-right: 15%">
                 </div>
@@ -119,16 +131,15 @@
                         End Date: <input type="datetime-local" class="form-control" name="end_date" id="end">
                     </div>
                 </div>
-                <div style="margin-left: 15.8%;">
+                <br >
+                <hr >
+                <div style="margin-left: 80%;">
                   <div class="btn btn-secondary">
-                    <a href="{% url 'calendar' %}"> Cancel </a>
+                    <a href="{% url 'dashboard' %}" style="color: white; text-decoration: none;"> Cancel </a>
                   </div>
-                  <button id="submit_button" type="submit" class="btn btn-primary">Update</button>
+                  <button id="submit_button" type="submit" class="btn btn-primary" style="background-color: #7ec4cf; border-color: #7ec4cf;">Update</button>
                 </div>
-
-                
-
-        
+                <br>
     
 </form>
 
