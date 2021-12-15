@@ -49,6 +49,18 @@
                     Notes
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" href="{% url 'about' %}">
+                    Help
+                  </a>
+                  <div class="dropdown-menu" style="position: absolute; margin-left: 25%;">
+                    <a href="{% url 'about' %}" class="dropdown-item">About Daily Note</a>
+                    <a href="{% url 'helpdash' %}" class="dropdown-item">Dashboard Guide</a>
+                    <a href="{% url 'helpcal' %}" class="dropdown-item">Calendar Guide</a>
+                    <a href="{% url 'helpnotes' %}" class="dropdown-item">Notes Guide</a>
+                    <a href="{% url 'helpthemes' %}" class="dropdown-item">Themes Guide</a>
+                </div>
+                </li>
                 {% else %}
                 <li class="nav-item">
                   <a class="nav-link active" href="#" style="font-weight: bold;">

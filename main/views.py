@@ -229,7 +229,7 @@ def Neutral_Themed(request):
 def Bright_Themed(request):
     user = request.user
     color = Color.objects.get(user = user)
-    colorform = Colorform({'user':user,'value_navbar':"#00c69e",'value_background':"#e2c1fe"},instance=color)
+    colorform = Colorform({'user':user,'value_navbar':"#f5e45f",'value_background':"#e2c1f3"},instance=color)
     if(colorform.is_valid()):
         colorform.save()
         print("it saved")
@@ -251,3 +251,34 @@ def dashboard(request):
     notExist = ""    
     data = {'color':color,'notExist':notExist, 'events':events, 'tasks':tasks, 'event_count':event_count, 'task_count':task_count }
     return render(request, "main/dashboard.html",data)
+
+#help
+def about(request):
+    user = request.user
+    color = Color.objects.get(user = user)
+    data = {'color':color}
+    return render(request, "main/help/about.html", data)
+
+def help_dashboard(request):
+    user = request.user
+    color = Color.objects.get(user = user)
+    data = {'color':color}
+    return render(request, "main/help/helpdashboard.html", data)
+
+def help_calendar(request):
+    user = request.user
+    color = Color.objects.get(user = user)
+    data = {'color':color}
+    return render(request, "main/help/helpcalendar.html", data)
+
+def help_notes(request):
+    user = request.user
+    color = Color.objects.get(user = user)
+    data = {'color':color}
+    return render(request, "main/help/helpnotes.html", data)
+
+def help_themes(request):
+    user = request.user
+    color = Color.objects.get(user = user)
+    data = {'color':color}
+    return render(request, "main/help/helpthemes.html", data)

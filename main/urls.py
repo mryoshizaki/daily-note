@@ -29,5 +29,12 @@ urlpatterns = [
 
     #dashboard
     path('dashboard/', views.dashboard, name='dashboard'),
+
+    #help
+    path('help/about-daily-note', views.about, name='about'),
+    path('help/dashboard', views.help_dashboard, name='helpdash'),
+    path('help/calendar', views.help_calendar, name='helpcal'),
+    path('help/notes', views.help_notes, name='helpnotes'),
+    path('help/themes', views.help_themes, name='helpthemes'),
     
 ]

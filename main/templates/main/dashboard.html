@@ -1,60 +1,113 @@
 {% extends 'main/navbar.html' %} 
 {%block content%}
+<style>
+    
+    .row {
+    display: flex;
+    margin: auto;
+    }
+
+    .column {
+    flex: 50%;
+    padding: 50px;
+    }
+
+    .table{
+        text-align: center;
+        vertical-align: middle;
+    }
+
+</style>
 <head>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}"/>
 </head>
-<br><br>
-    <h2 class = "event">{{ event_count }} events</h2>
-    <h2 class = "todo">{{ task_count }} to-do</h2> 
+<div>
+        <div class="row">
+            
+            <div class = "column">
+                <h2 class = "event"><span style="background-color: #7ec4cf;">
+                    {{ event_count }} EVENTS
+                </span></h2>
+            </div>
+            <div class = "column">
+                <h2 class = "todo"><span style="background-color: #7ec4cf;">
+                    {{ task_count }} TO-DOs
+                </span></h2>
+            </div>
 
-
-<div class = "row">
-    <div class = "column">
-        <h2> Event List </h2>
-        <table class="table table-light table-striped table-bordered table-sm table-hover">
-				
-            <tr>
-                <th>Event #</th>
-                <th>Event Name</th>
-                <th>Date</th>
-            </tr>
-            {% if notExist != "" %}
-            <h3>{{notExist}}</h3>
-            {% endif %}
+        </div>
         
-            {% for event in events %}
-                <tr>
-                    <td>{{event.event_id}}</td>
-                    <td>{{event.name}}</td>
-                    <td>{{event.start_date}}</td>
-                </tr>
-            {% endfor %}
-        </table>
-    </div>
+        <div class = "row">
+            <div class = "column">
+                <h2> Event List </h2>
+                <table class="table table-light table-striped table-bordered table-sm table-hover" >
+                        
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Date</th>
+                        <th colspan="2">Action</th>
+                    </tr>
+                    {% if notExist != "" %}
+                    <h3>{{notExist}}</h3>
+                    {% endif %}
+                
+                    {% for event in events %}
+                        <tr>
+                            <td>{{event.name}}</td>
+                            <td>{{event.start_date}}</td>
+                            <td>
+                                <a id="submit_button" type="submit" class="btn btn-sm btn-success" style="margin:auto; display: block; background-color: #7ec4cf; border-color: #7ec4cf;">
+                                        <i class="fas fa-pen-square"></i>
+                                    Update
+                                </a>
+                            </td>
+                            <td>
+                                <a id="submit_button" type="submit" class="btn btn-sm btn-success" style="margin:auto; display: block; background-color: #7ec4cf; border-color: #7ec4cf;">
+                                    <i class="fas fa-trash"></i>
+                                Delete
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
 
-    <div class = "column">
-        <h2> To do List </h2>
-        <table class="table table-light table-striped table-bordered table-sm table-hover">
-				
-            <tr>
-                <th>To do #</th>
-                <th>Name</th>
-                <th>Date</th>
-            </tr>
-            {% if notExist != "" %}
-            <h3>{{notExist}}</h3>
-            {% endif %}
-        
-            {% for task in tasks %}
-                <tr>
-                    <td>{{task.event_id}}</td>
-                    <td>{{task.name}}</td>
-                    <td>{{task.end_date}}</td>
-                </tr>
-            {% endfor %}
-        </table>
-    </div>
+            <div class = "column">
+                <h2> To Do List </h2>
+                <table class="table table-light table-striped table-bordered table-sm table-hover" >
+                        
+                    <tr>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th colspan="2">Action</th>
+                    </tr>
+                    {% if notExist != "" %}
+                    <h3>{{notExist}}</h3>
+                    {% endif %}
+                
+                    {% for task in tasks %}
+                        <tr>
+                            <td>{{task.name}}</td>
+                            <td>{{task.end_date}}</td>
+                            <td>
+                                <a id="submit_button" type="submit" class="btn btn-sm btn-success" style="margin:auto; display: block; background-color: #7ec4cf; border-color: #7ec4cf;">
+                                        <i class="fas fa-pen-square"></i>
+                                Update
+                                </a>
+                            </td>
+                            <td>
+                                <a id="submit_button" type="submit" class="btn btn-sm btn-success" style="margin:auto; display: block; background-color: #7ec4cf; border-color: #7ec4cf;">
+                                    <i class="fas fa-trash"></i>
+                                Delete
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
 </div>
+<br> <br>
 
 {% endblock %}
