@@ -386,7 +386,7 @@ def dashboard(request):
     tasks = Event.objects.filter(user=user).filter(event_type="Task")
     task_count = tasks.count() 
     form = EventForm() 
-    data = {'color':color, 'events':events, 'tasks':tasks, 'event_count':event_count, 'task_count':task_count, 'form'}
+    data = {'color':color, 'events':events, 'tasks':tasks, 'event_count':event_count, 'task_count':task_count, 'form':form}
     return render(request, "main/dashboard.html",data)
 
 #help
