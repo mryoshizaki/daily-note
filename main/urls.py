@@ -25,6 +25,8 @@ urlpatterns = [
     # path('calendar-view/<int>', views.CalendarView.as_view(), name='calendar'),
     path('create-event/', views.create_event, name='create-event'),
 	# path(r'^event/edit/(?P<event_id>\d+)/$', views.event, name='event_edit'),
+    path('view-calendar/update/<pk>', views.update_event, name='update-event'),
+    path('view-calendar/delete/<pk>', views.delete_event, name='delete-event'),
 
     #color-theme
     path('pastel-themed/',views.Pastel_Themed,name='pastel-themed'),
@@ -33,5 +35,12 @@ urlpatterns = [
 
     #dashboard
     path('dashboard/', views.dashboard, name='dashboard'),
+
+    #help
+    path('help/about-daily-note', views.about, name='about'),
+    path('help/dashboard', views.help_dashboard, name='helpdash'),
+    path('help/calendar', views.help_calendar, name='helpcal'),
+    path('help/notes', views.help_notes, name='helpnotes'),
+    path('help/themes', views.help_themes, name='helpthemes'),
     
 ]

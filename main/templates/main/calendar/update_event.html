@@ -1,16 +1,8 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Daily Note</title>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    {% block content %}
-  </head>
-<body style="background-color:">
+{% extends 'main/navbar2.html' %} 
+{% block content %}
+{{form.media}}
+</head>
+<body style="background-color:{{color.value_background}}">
     <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: {{color.value_navbar}}">
         <div class="container-fluid">
           <div class = "topnav-left">
@@ -26,7 +18,7 @@
                   </a> 
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" href="{% url 'dashboard' %}">
+                  <a class="nav-link active" href="#">
                     Dashboard
                   </a>
                 </li>   
@@ -39,18 +31,6 @@
                   <a class="nav-link active" href="{% url 'notesview' %}">
                     Notes
                   </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" href="{% url 'about' %}" >
-                    Help
-                  </a>
-                  <div class="dropdown-menu" style="position: absolute; margin-left: 25%;">
-                    <a href="{% url 'about' %}" class="dropdown-item">About Daily Note</a>
-                    <a href="{% url 'helpdash' %}" class="dropdown-item">Dashboard Guide</a>
-                    <a href="{% url 'helpcal' %}" class="dropdown-item">Calendar Guide</a>
-                    <a href="{% url 'helpnotes' %}" class="dropdown-item">Notes Guide</a>
-                    <a href="{% url 'helpthemes' %}" class="dropdown-item">Themes Guide</a>
-                </div>
                 </li>
                 {% else %}
                 <li class="nav-item">
@@ -101,9 +81,55 @@
         </div>
       </nav>
 
-      
 
-      {% endblock %}
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-</body>
-</html>
+<br> <br>
+
+
+<form method="post">
+    {% csrf_token %}
+                <div class="row" style="margin-left: 15%; margin-right: 15%">
+                </div>
+                <br />
+                <div class="row" style="width: 50%; margin-left: 15%; margin-right: 15%">
+                <div class="col">Type: {{form.event_type}}</div>
+                </div>
+                <br />
+                <br />
+                <div class="row" style="margin-left: 15%; margin-right: 15%">
+                <div class="col">Enter Event Title: {{form.name}}</div>
+                </div>
+                <br >
+                <br >
+                <div class="row" style="margin-left: 15%; margin-right: 15%">
+                    <div class="col">
+                        Enter Event Description: {{form.about}}
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row" style="margin-left: 15%; margin-right: 15%">
+                    <div class="col">
+                        Start Date: <input type="datetime-local" class="form-control" name="start_date" id="start">
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row" style="margin-left: 15%; margin-right: 15%">
+                    <div class="col">
+                        End Date: <input type="datetime-local" class="form-control" name="end_date" id="end">
+                    </div>
+                </div>
+                <div style="margin-left: 15.8%;">
+                  <div class="btn btn-secondary">
+                    <a href="{% url 'calendar' %}"> Cancel </a>
+                  </div>
+                  <button id="submit_button" type="submit" class="btn btn-primary">Update</button>
+                </div>
+
+                
+
+        
+    
+</form>
+
+{% endblock %}

@@ -291,12 +291,55 @@ def create_event(request):
     data = {'events':events, 'form':form,'color':color}
     return render(request, 'main/calendar/calendar.html',data)
 
+def delete_event(request,pk):
+    user = request.user
+    form = EventForm()
+    try:
+        events = Event.objects.filter(user = user)
+        if request.method == 'POST':
+            event = Event.objects.get(id=pk)
+            event.delete()
+    except ObjectDoesNotExist:
+        events = []
+    color = Color.objects.get(user = user)
+    data = {'events':events,'form':form,'color':color}
+    return render(request, 'main/calendar/calendar.html',data)
+
+def update_event(request,pk):
+    user = request.user
+    event = Event.objects.get(id=pk)
+    color = Color.objects.get(user=user)
+    form = EventForm(instance = event)
+    if(request.method == 'POST'):
+        event = EventForm({'user':user,
+        'name':request.POST.get('name'),
+        'about':request.POST.get('about'),
+        'start_date':request.POST.get('start_date'),
+        'end_date':request.POST.get('end_date'),
+        'event_type':request.POST.get('event_type')})
+        if form.is_valid:
+            form.save()
+            events = Event.object.filter(user = user)
+            data = {'events':events, 'form':form, 'color':color}
+            return render(request, "main/calendar/calendar.html",data)
+        else:
+            print("kldnasldk")
+            print(form.errors)
+    data = {"event":event,'form':form,'color':color}
+    return render(request, "main/notes/update_event.html",data)
 
 #Theme
 
 def Pastel_Themed(request):
     user = request.user
     color = Color.objects.get(user = user)
+
+    events = Event.objects.filter(user=user).filter(event_type="Event")
+    event_count = events.count()
+    tasks = Event.objects.filter(user=user).filter(event_type="Task")
+    task_count = tasks.count()
+    notExist = ""  
+
     colorform = Colorform({'user':user,'value_navbar':"#eeeeee",'value_background':"#d1cfe2"},instance=color)
     if(colorform.is_valid()):
         colorform.save()
@@ -304,12 +347,19 @@ def Pastel_Themed(request):
     else:
         print(colorform.errors)
     color = Color.objects.get(user = user)
-    data = {'color':color}
-    return render(request, "main/index.html",data)
+    data = {'color':color,'notExist':notExist, 'events':events, 'tasks':tasks, 'event_count':event_count, 'task_count':task_count }
+    return render(request, "main/dashboard.html",data)
 
 def Neutral_Themed(request):
     user = request.user
     color = Color.objects.get(user = user)
+
+    events = Event.objects.filter(user=user).filter(event_type="Event")
+    event_count = events.count()
+    tasks = Event.objects.filter(user=user).filter(event_type="Task")
+    task_count = tasks.count()
+    notExist = ""  
+
     colorform = Colorform({'user':user,'value_navbar':"#a75e2f",'value_background':"#e8d9ce"},instance=color)
     if(colorform.is_valid()):
         colorform.save()
@@ -317,21 +367,28 @@ def Neutral_Themed(request):
     else:
         print(colorform.errors)
     color = Color.objects.get(user = user)
-    data = {'color':color}
-    return render(request, "main/index.html",data)
+    data = {'color':color,'notExist':notExist, 'events':events, 'tasks':tasks, 'event_count':event_count, 'task_count':task_count }
+    return render(request, "main/dashboard.html",data)
 
 def Bright_Themed(request):
     user = request.user
     color = Color.objects.get(user = user)
-    colorform = Colorform({'user':user,'value_navbar':"#00c69e",'value_background':"#e2c1fe"},instance=color)
+    
+    events = Event.objects.filter(user=user).filter(event_type="Event")
+    event_count = events.count()
+    tasks = Event.objects.filter(user=user).filter(event_type="Task")
+    task_count = tasks.count()
+    notExist = ""    
+    
+    colorform = Colorform({'user':user,'value_navbar':"#f5e45f",'value_background':"#e2c1f3"},instance=color)
     if(colorform.is_valid()):
         colorform.save()
         print("it saved")
     else:
         print(colorform.errors)
     color = Color.objects.get(user = user)
-    data = {'color':color}
-    return render(request, "main/index.html",data)
+    data = {'color':color,'notExist':notExist, 'events':events, 'tasks':tasks, 'event_count':event_count, 'task_count':task_count }
+    return render(request, "main/dashboard.html",data)
 
 #dashboard
 
@@ -345,3 +402,34 @@ def dashboard(request):
     notExist = ""    
     data = {'color':color,'notExist':notExist, 'events':events, 'tasks':tasks, 'event_count':event_count, 'task_count':task_count }
     return render(request, "main/dashboard.html",data)
+
+#help
+def about(request):
+    user = request.user
+    color = Color.objects.get(user = user)
+    data = {'color':color}
+    return render(request, "main/help/about.html", data)
+
+def help_dashboard(request):
+    user = request.user
+    color = Color.objects.get(user = user)
+    data = {'color':color}
+    return render(request, "main/help/helpdashboard.html", data)
+
+def help_calendar(request):
+    user = request.user
+    color = Color.objects.get(user = user)
+    data = {'color':color}
+    return render(request, "main/help/helpcalendar.html", data)
+
+def help_notes(request):
+    user = request.user
+    color = Color.objects.get(user = user)
+    data = {'color':color}
+    return render(request, "main/help/helpnotes.html", data)
+
+def help_themes(request):
+    user = request.user
+    color = Color.objects.get(user = user)
+    data = {'color':color}
+    return render(request, "main/help/helpthemes.html", data)

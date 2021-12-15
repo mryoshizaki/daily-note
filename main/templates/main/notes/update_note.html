@@ -18,7 +18,7 @@
                   </a> 
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" href="#">
+                  <a class="nav-link active" href="{% url 'dashboard' %}">
                     Dashboard
                   </a>
                 </li>   
@@ -31,6 +31,18 @@
                   <a class="nav-link active" href="{% url 'notesview' %}">
                     Notes
                   </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" href="{% url 'about' %}">
+                    Help
+                  </a>
+                  <div class="dropdown-menu" style="position: absolute; margin-left: 25%;">
+                    <a href="{% url 'about' %}" class="dropdown-item">About Daily Note</a>
+                    <a href="{% url 'helpdash' %}" class="dropdown-item">Dashboard Guide</a>
+                    <a href="{% url 'helpcal' %}" class="dropdown-item">Calendar Guide</a>
+                    <a href="{% url 'helpnotes' %}" class="dropdown-item">Notes Guide</a>
+                    <a href="{% url 'helpthemes' %}" class="dropdown-item">Themes Guide</a>
+                </div>
                 </li>
                 {% else %}
                 <li class="nav-item">
@@ -84,33 +96,38 @@
 
 <br> <br>
 
+<div class="col-11">
+  <div class="card border-info" style="margin-left: 15%; margin-right: 5%; ">
+    <h5 class="card-header" style="text-align: center; background-color: #9cadce; ">Update Note</h5>
+      <div class="card-body" style="border-color: #9cadce;">
+          
+        <form method="post">
+          {% csrf_token %}
+                      <div class="row" style="margin-left: 15%; margin-right: 15%">
+                      </div>
+                      <br />
+                      <div class="row" style="width: 50%; margin-left: 15%; margin-right: 15%">
+                      <div class="col">Title: {{form.title}}</div>
+                      </div>
+                      <br />
+                      <br />
+                      <div class="row" style="margin-left: 15%; margin-right: 15%">
+                      <div class="col">Enter note text: {{form.text}}</div>
+                      </div>
+                      <br >
+                      <hr >
+                      <div style="margin-left: 80%;">
+                        <div class="btn btn-secondary">
+                          <a href="{% url 'notesview' %}" style="color: white; text-decoration: none;"> Cancel </a>
+                        </div>
+                        <button id="submit_button" type="submit" class="btn btn-primary" style="background-color: #7ec4cf; border-color: #7ec4cf;">Update</button>
+                      </div>
+                      <br>
+      </form>
 
-<form method="post">
-    {% csrf_token %}
-                <div class="row" style="margin-left: 15%; margin-right: 15%">
-                </div>
-                <br />
-                <div class="row" style="width: 50%; margin-left: 15%; margin-right: 15%">
-                <div class="col">Title: {{form.title}}</div>
-                </div>
-                <br />
-                <br />
-                <div class="row" style="margin-left: 15%; margin-right: 15%">
-                <div class="col">Enter note text: {{form.text}}</div>
-                </div>
-                <br >
-                <br >
-                <div style="margin-left: 15.8%;">
-                  <div class="btn btn-secondary">
-                    <a href="{% url 'notesview' %}"> Cancel </a>
-                  </div>
-                  <button id="submit_button" type="submit" class="btn btn-primary">Update</button>
-                </div>
-
-                
-
-        
-    
-</form>
+      </div>
+  </div>
+</div>
+<br> <br> <br> <br> <br>
 
 {% endblock %}
