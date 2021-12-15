@@ -2,63 +2,74 @@
 {%block content%}
 
 <style>
-    #calendar {
-        padding-top: 2%; 
-        padding-bottom: 2%; 
-        background-color: #e9cbd3;
-        border-style: outset;
-        border-radius: 5px;
-        border-color: black;
-    }
-    table, th, td {
-        border: 1px solid black;
-    }
+    .calendar {
+  width: 98%;
+  margin: auto;
+  font-size: 13px;
+}
 
-    .fc-prev-button.btn.btn-primary {
-        background-color: #7ec4cf;
-        border-color: #7ec4cf;
-    }
+.calendar tr, .calendar td {
+  border: 1px solid black;
+}
 
-    .fc-next-button.btn.btn-primary {
-        background-color: #7ec4cf;
-        border-color: #7ec4cf;
-    }
+.calendar th {
+  padding: 10px;
+  text-align: center;
+  font-size: 18px;
+}
 
-    .fc-today-button.btn.btn-primary {
-        background-color: #7ec4cf;
-        border-color: #7ec4cf;
-    }
+.calendar td {
+  width: 200px;
+  height: 150px;
+  padding: 20px 0px 0px 5px;
+}
 
-    .fc-dayGridMonth-button.btn.btn-primary.active {
-        background-color: #7ec4cf;
-        border-color: #7ec4cf;
-    }
+.month {
+  font-size: 25px;
+}
 
-    .fc-timeGridWeek-button.btn.btn-primary {
-        background-color: #7ec4cf;
-        border-color: #7ec4cf;
-    }
+.date {
+  font-size: 16px;
+}
 
-    .fc-timeGridDay-button.btn.btn-primary {
-        background-color: #7ec4cf;
-        border-color: #7ec4cf;
-    }
+ul {
+  height: 100%;
+  padding: 0px 5px 0px 20px;
+}
 
-    .fc-addEventButton-button.btn.btn-primary {
-        background-color: #7ec4cf;
-        border-color: #7ec4cf;
-    }
+a {
+  color: #17a2b8;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.btn {
+  outline: none;
+  color: white;
+  background-color: gray;
+  box-shadow: 0 0 0 0;
+}
+
+.clearfix {
+  margin: 15px;
+}
 </style>
 
-
-
-<div class="container-fluid">
-    <br>
-    <br>
-    <div class="row" style="padding-left: 2%; padding-right: 2%; border-width: 2px;"> 
-        <div id="calendar" ></div>
+<div class="clearfix" id="calendar">
+    <div class="btn-group" role="group" aria-label="Basic example">
+	<a class="btn  left" href="{'% url 'calendar' %}?{{ prev_month }}"> Prev </a>
+    <a class="btn  left" href="{'% url 'calendar' %}?{{ next_month }}"> Next </a>
     </div>
+    <a class="btn  right" data-bs-toggle="modal" data-bs-target="#eventModal"> New Event </a>
+	
 </div>
+
 
 <div class="modal fade show" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -66,7 +77,7 @@
             <div class="modal-header bg-primary">
                 <h5 class="modal-title text-white" id="exampleModalLongTitle">Add New Event</h5>
             </div>
-            <form action="{% url 'calendar' %}" method="post">
+            <form action="{% url 'create-event' %}" method="post">
                 {% csrf_token %}
                 <div class="modal-body">
                     <div class="form-group">
@@ -91,7 +102,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="modalClose2" type="button" class="btn btn-danger">Close</button>
+                    <button id="modalClose2" type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
@@ -99,79 +110,7 @@
     </div>
 </div>
 
-
-
-<!-- {{ calendars|json_script:"calendar_data" }} -->
-<script>
-    const myEvents = "{{ events }}";
-    document.addEventListener("DOMContentLoaded", function () {
-
-        var modal = document.getElementById("eventModal");
-
-        var quit = document.getElementById("modalClose2");
-
-        // Initialize calendar
-        var calendarEl = document.getElementById("calendar");
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            // format of calendar
-            themeSystem: "bootstrap",
-            locale: "en",
-            firstDay: 1,
-            weekday: "long",
-            height: "650px",
-            initialView: "dayGridMonth",
-            selectable: true,
-            headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay,addEventButton'},
-
-            // display event
-            resources:[
-
-            
-            ],
-
-            
-            events:{},
-
-
-
-
-
-
-
-
-
-
-            //create event
-            customButtons: {
-                addEventButton: {
-                    text: 'add event',
-                    click: function() {
-                        modal.style.display = "block";
-                    }
-                    
-                }
-            }
-            
-        });
-        calendar.render();
-
-        quit.onclick = function() {
-            modal.style.display = "none";
-        }
-
-    });
-    
-</script>
-
-
-
-
-
-
-
+{{ calendar }}
 
 
 

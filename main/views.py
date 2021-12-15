@@ -1,3 +1,4 @@
+import calendar
 from django.http.response import BadHeaderError
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
@@ -15,7 +16,11 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.template.loader import render_to_string
-from mysite.settings import EMAIL_HOST_USER
+from datetime import date, datetime, timedelta
+from django.http import HttpResponse
+from django.views import generic
+from django.utils.safestring import mark_safe
+from .utils import Calendar
 
 
 # Create your views here.
@@ -171,6 +176,95 @@ def passwordReset(request):
 
 
 #Calendar
+class CalendarView(generic.ListView):
+    model = Event
+    template_name = 'main/calendar/calendar.html'
+
+    def get_context_data(self,**kwargs):
+        user = self.request.user
+        color = Color.objects.get(user = user)
+        form = EventForm()
+        context = super().get_context_data(**kwargs)
+
+        # use today's date for the calendar
+        # d = get_date(self.request.GET.get('day', None))
+        d = get_date(self.request.GET.get('month', None))
+        context['prev_month'] = prev_month(d)
+        context['next_month'] = next_month(d)
+
+        # Instantiate our calendar class with today's year and date
+        cal = Calendar(d.year, d.month)
+
+        # Call the formatmonth method, which returns our calendar as a table
+        html_cal = cal.formatmonth(withyear=True)
+        context['color'] = color
+        context['form'] = form
+        # context['request'] = request
+        context['calendar'] = mark_safe(html_cal)
+        return context
+    
+    def create_event(self,**kwargs):
+        user = self.request.user
+        color = Color.objects.get(user = user)
+        try:
+            events = Event.objects.filter(user = user)
+        except ObjectDoesNotExist:
+            events = []
+
+        form = EventForm()
+        if self.request.method == 'POST':
+            form = EventForm({'user':self.request.user,'name':self.request.POST.get('name'),
+                            'about':self.request.POST.get('about'),'start_date':self.request.POST.get('start_date'),
+                            'end_date':self.request.POST.get('end_date'),'event_type':self.request.POST.get('event_type'),})
+            if form.is_valid():
+                form.save()
+                events = Event.objects.filter(user=user)
+                form = EventForm()
+                print("saved form")
+                data = {'events':events, 'form':form,'color':color}
+                return redirect('calendar')
+                # print(form)
+            else:
+                print(form.errors)
+        data = {'events':events, 'form':form,'color':color}
+        return render(self.request, 'main/calendar/calendar.html',data)
+    
+
+def get_date(req_day):
+    if req_day:
+        year, month = (int(x) for x in req_day.split('-'))
+        return date(year, month, day=1)
+    return datetime.today()
+
+def prev_month(d):
+    first = d.replace(day=1)
+    prev_month = first - timedelta(days=1)
+    month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
+    return month
+
+def next_month(d):
+    days_in_month = calendar.monthrange(d.year, d.month)[1]
+    last = d.replace(day=days_in_month)
+    next_month = last + timedelta(days=1)
+    month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
+    return month
+    
+# def create_event(request, event_id=None):
+#     user = request.user
+#     color = Color.objects.get(user = user)
+
+#     instance = Event()
+#     if event_id:
+#         instance = get_object_or_404(Event, pk=event_id)
+#     else:
+#         instance = Event()
+
+#     form = EventForm(request.POST or None, instance=instance)
+#     if request.POST and form.is_valid():
+#         form.save()
+#         return HttpResponseRedirect(reverse('cal:calendar'))
+#     return render(request, 'cal/event.html', {'form': form, 'color':color})
+
 def create_event(request):
     user = request.user
     color = Color.objects.get(user = user)
@@ -190,7 +284,7 @@ def create_event(request):
             form = EventForm()
             print("saved form")
             data = {'events':events, 'form':form,'color':color}
-            return render(request, 'main/calendar/calendar.html',data)
+            return redirect('calendar')
             # print(form)
         else:
             print(form.errors)

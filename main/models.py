@@ -1,3 +1,4 @@
+from typing import Reversible
 from django.db import models
 from django.http import HttpResponse
 from django.utils import timezone
@@ -41,3 +42,8 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def get_html_url(self):
+        url = Reversible('event_edit', args=(self.id,))
+        return f'<p>{self.name}</p><a href="{url}">edit</a>'
