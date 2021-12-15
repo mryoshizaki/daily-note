@@ -24,8 +24,8 @@ from .utils import Calendar
 
 
 # Create your views here.
-def index(request):
-    return redirect('login')
+# def index(request):
+#     return redirect('login')
 
 @unauthenticated_user
 def loginPage(request):
