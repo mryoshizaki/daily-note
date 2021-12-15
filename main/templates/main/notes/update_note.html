@@ -97,11 +97,19 @@
                 <br />
                 <div class="row" style="margin-left: 15%; margin-right: 15%">
                 <div class="col">Enter note text: {{form.text}}</div>
-            </div>
+                </div>
+                <br >
+                <br >
+                <div style="margin-left: 15.8%;">
+                  <div class="btn btn-secondary">
+                    <a href="{% url 'notesview' %}"> Cancel </a>
+                  </div>
+                  <button id="submit_button" type="submit" class="btn btn-primary">Update</button>
+                </div>
 
+                
 
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button id="submit_button" type="submit" class="btn btn-primary">Update</button>
+        
     
 </form>
 
