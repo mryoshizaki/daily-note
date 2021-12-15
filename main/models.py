@@ -41,7 +41,7 @@ class Event(models.Model):
     event_type = models.CharField(max_length=100, choices=TYPE_CHOICES, default="TASK")
 
     def __str__(self):
-        return self.name
+        return self.name 
 
     @property
     def get_html_url(self):

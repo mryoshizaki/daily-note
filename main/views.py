@@ -25,7 +25,7 @@ from .utils import Calendar
 
 # Create your views here.
 def index(request):
-    return render(request, "main/index.html")
+    return redirect('login')
 
 @unauthenticated_user
 def loginPage(request):
@@ -40,7 +40,7 @@ def loginPage(request):
             loginuser = user
             color = Color.objects.get(user = loginuser)
             data = {'color':color}
-            return render(request,"main/index.html",data)
+            return redirect('dashboard')
         else:
             messages.info(request, "Username or Password is incorrect.")
             return redirect('login')
@@ -76,7 +76,7 @@ def registerPage(request):
 
 def logoutPage(request):
     logout(request)
-    return render(request, "main/index.html")
+    return redirect('login')
 
 #Notes
 
@@ -249,21 +249,6 @@ def next_month(d):
     month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
     return month
     
-# def create_event(request, event_id=None):
-#     user = request.user
-#     color = Color.objects.get(user = user)
-
-#     instance = Event()
-#     if event_id:
-#         instance = get_object_or_404(Event, pk=event_id)
-#     else:
-#         instance = Event()
-
-#     form = EventForm(request.POST or None, instance=instance)
-#     if request.POST and form.is_valid():
-#         form.save()
-#         return HttpResponseRedirect(reverse('cal:calendar'))
-#     return render(request, 'cal/event.html', {'form': form, 'color':color})
 
 def create_event(request):
     user = request.user
@@ -293,17 +278,19 @@ def create_event(request):
 
 def delete_event(request,pk):
     user = request.user
-    form = EventForm()
-    try:
-        events = Event.objects.filter(user = user)
-        if request.method == 'POST':
-            event = Event.objects.get(id=pk)
-            event.delete()
-    except ObjectDoesNotExist:
-        events = []
     color = Color.objects.get(user = user)
-    data = {'events':events,'form':form,'color':color}
-    return render(request, 'main/calendar/calendar.html',data)
+    form = EventForm()
+    events = Event.objects.filter(user = user).filter(event_type = "Event")
+    tasks = Event.objects.filter(user = user).filter(event_type = "Task")
+
+    if request.method == 'POST':
+            print('wil del')
+            event = Event.objects.get(event_id=pk)
+            event.delete()
+            return redirect('dashboard')
+   
+    data = {'events':events,'form':form,'color':color, 'tasks':tasks}
+    return render(request, 'main/dashboard.html',data)
 
 def update_event(request,pk):
     user = request.user
@@ -320,8 +307,7 @@ def update_event(request,pk):
         if form.is_valid:
             form.save()
             events = Event.object.filter(user = user)
-            data = {'events':events, 'form':form, 'color':color}
-            return render(request, "main/calendar/calendar.html",data)
+            return redirect('dashboard')
         else:
             print("kldnasldk")
             print(form.errors)
@@ -398,9 +384,9 @@ def dashboard(request):
     events = Event.objects.filter(user=user).filter(event_type="Event")
     event_count = events.count()
     tasks = Event.objects.filter(user=user).filter(event_type="Task")
-    task_count = tasks.count()
-    notExist = ""    
-    data = {'color':color,'notExist':notExist, 'events':events, 'tasks':tasks, 'event_count':event_count, 'task_count':task_count }
+    task_count = tasks.count() 
+    form = EventForm() 
+    data = {'color':color, 'events':events, 'tasks':tasks, 'event_count':event_count, 'task_count':task_count, 'form'}
     return render(request, "main/dashboard.html",data)
 
 #help

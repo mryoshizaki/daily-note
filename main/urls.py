@@ -22,11 +22,10 @@ urlpatterns = [
     #calendar
     # path('create-event/', views.create_event, name='calendar'),
     path('calendar-view/', views.CalendarView.as_view(), name='calendar'),
-    # path('calendar-view/<int>', views.CalendarView.as_view(), name='calendar'),
+    path('calendar-view/<int>', views.CalendarView.as_view(), name='calendar'),
     path('create-event/', views.create_event, name='create-event'),
-	# path(r'^event/edit/(?P<event_id>\d+)/$', views.event, name='event_edit'),
-    path('view-calendar/update/<pk>', views.update_event, name='update-event'),
-    path('view-calendar/delete/<pk>', views.delete_event, name='delete-event'),
+    path('delete-event/<pk>', views.delete_event, name='delete-event'),
+    path('update-event/<pk>', views.delete_event, name='update-event'),
 
     #color-theme
     path('pastel-themed/',views.Pastel_Themed,name='pastel-themed'),
