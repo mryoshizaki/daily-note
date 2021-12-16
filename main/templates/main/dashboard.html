@@ -60,10 +60,10 @@
                             <td>
                                 <form action="{% url 'update-event' event.event_id%}">
                                     {% csrf_token %}
-                                    <a id="submit_button" type="submit" class="btn btn-sm btn-success" style="margin:auto; display: block; background-color: #7ec4cf; border-color: #7ec4cf;">
+                                    <button id="submit_button" type="submit" class="btn btn-sm btn-success" style="margin:auto; display: block; background-color: #7ec4cf; border-color: #7ec4cf;">
                                         <i class="fas fa-pen-square"></i>
                                     Update
-                                    </a>
+                                </button>
                                 </form>
                             </td>
                             <td>
