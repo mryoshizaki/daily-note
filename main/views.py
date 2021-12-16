@@ -21,11 +21,28 @@ from django.http import HttpResponse
 from django.views import generic
 from django.utils.safestring import mark_safe
 from .utils import Calendar
-
+from mysite.settings import EMAIL_HOST_USER
 
 # Create your views here.
 def index(request):
-    return render(request,'main/login.html')
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            loginuser = user
+            color = Color.objects.get(user = loginuser)
+            data = {'color':color}
+            return redirect('dashboard')
+        else:
+            messages.info(request, "Username or Password is incorrect.")
+            return redirect('login')
+
+    context = {}
+    return render(request, "main/login.html", context)
 
 @unauthenticated_user
 def loginPage(request):
