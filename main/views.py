@@ -399,9 +399,9 @@ def Bright_Themed(request):
 def dashboard(request):
     user = request.user
     color = Color.objects.get(user = user)
-    events = Event.objects.filter(user=user).filter(event_type="Event")
+    events = Event.objects.filter(user=user).filter(event_type="Event").order_by('start_date')
     event_count = events.count()
-    tasks = Event.objects.filter(user=user).filter(event_type="Task")
+    tasks = Event.objects.filter(user=user).filter(event_type="Task").order_by('end_date')
     task_count = tasks.count() 
     form = EventForm() 
     data = {'color':color, 'events':events, 'tasks':tasks, 'event_count':event_count, 'task_count':task_count, 'form':form}
