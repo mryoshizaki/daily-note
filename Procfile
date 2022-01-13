@@ -1,4 +1,1 @@
-web:g unicorn
-mysite.wsgi
---logfile
--
+web: gunicorn mysite.wsgi
