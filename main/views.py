@@ -135,7 +135,7 @@ def update_note(request,pk):
             form.save()
             notes = Note.objects.filter(author = user)
             data = {"notes":notes,'form':form,'color':color}
-            return render(request, "main/notes/NotesView.html",data)
+            return render(request, "main/notes/notesView.html",data)
         else:
             print("kldnasldk")
             print(form.errors)
